@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import Input from "./Input";
+import icons from "../utils/icons.js";
+
+const { FiSearch } = icons;
 
 const Navbar = () => {
   return (
@@ -38,7 +42,16 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-            <div>llllllllllllllllllllllllllllllllllllllllll</div>
+            <div className="flex items-center justify-center">
+              <Input
+                type="text"
+                place="What are you looking for?"
+                classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
+              />
+              <span className="bg-input-bg p-2">
+                <FiSearch />
+              </span>
+            </div>
           </div>
         </div>
       </div>

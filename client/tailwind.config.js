@@ -10,6 +10,7 @@ export default {
         black: "#000",
         white: "#fff",
         line: "#D9DBE9",
+        "input-bg": "#EFF0F6",
       },
     },
   },
