@@ -1,14 +1,18 @@
 import Input from "./Input";
 import icons from "../utils/icons";
 import { Link } from "react-router-dom";
+import QrCode from "../assets/images/Qrcode.png";
+import appstore from "../assets/images/appstore.png";
+import googleplay from "../assets/images/googleplay.png";
 
-const { VscSend } = icons;
+const { VscSend, RiFacebookLine, FaInstagram, FiTwitter, RiLinkedinLine } =
+  icons;
 
 const Footer = () => {
   return (
     <div className="bg-black">
       <div className="max-w-1170 mx-auto py-[80px]">
-        <div className="flex">
+        <div className="row">
           <div className="col-3">
             <div>
               <h1 className="text-[24px] font-bold text-white leading-[24px]">
@@ -21,7 +25,7 @@ const Footer = () => {
                 Get 10% off your first order
               </p>
             </div>
-            <div className="mt-3 flex items-center justify-center">
+            <div className="mt-3 flex items-center">
               <Input
                 type="text"
                 place="Enter your email"
@@ -32,7 +36,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className="col-2 ml-[80px]">
+          <div className="col-2">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Support
             </h1>
@@ -56,7 +60,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-2 ml-[80px]">
+          <div className="col-2">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Account
             </h1>
@@ -90,7 +94,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-2 ml-[80px]">
+          <div className="col-2">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Quick Link
             </h1>
@@ -119,7 +123,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-3 ml-[80px]">
+          <div className="col-3">
             <div>
               <h1 className="text-[20px] text-white font-medium leading-[28px]">
                 Quick Link
@@ -128,16 +132,42 @@ const Footer = () => {
                 Save $3 with App New User Only
               </p>
             </div>
-            <div className="flex">
-              <div className="col-6">
-                <img src="/images/qr.svg" alt="" />
+            <div className="flex items-center gap-2 mt-2">
+              <div className="">
+                <img
+                  src={QrCode}
+                  alt=""
+                  className="w-[76px] h-[76px] object-contain"
+                />
               </div>
-              <div className="col-6">
-                <div>
-                  <img src="/images/qr.svg" alt="" />
-                </div>
-                <div></div>
+              <div className="">
+                <img
+                  src={googleplay}
+                  alt=""
+                  className="w-[120px] h-[40px] object-contain"
+                />
+                <img
+                  src={appstore}
+                  alt=""
+                  className="w-[120px] h-[40px] object-contain"
+                />
               </div>
+            </div>
+            <div className="">
+              <ul className="flex items-center gap-6 mt-3">
+                <li className="text-white">
+                  <RiFacebookLine size={24} />
+                </li>
+                <li className="text-white">
+                  <FiTwitter size={24} />
+                </li>
+                <li className="text-white">
+                  <FaInstagram size={24} />
+                </li>
+                <li className="text-white">
+                  <RiLinkedinLine size={24} />
+                </li>
+              </ul>
             </div>
           </div>
         </div>

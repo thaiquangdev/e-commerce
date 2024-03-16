@@ -1,10 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Input from "./Input";
 import icons from "../utils/icons.js";
+import { useState } from "react";
 
 const { FiSearch } = icons;
 
 const Navbar = () => {
+  const [isActive, setIsActive] = useState(false);
+  const location = useLocation();
+
+  const handleClick = () => {
+    setIsActive(true);
+  };
+
   return (
     <div>
       <div className="bg-black">
@@ -29,16 +37,46 @@ const Navbar = () => {
             <div>
               <ul className="flex items-center justify-center gap-12">
                 <li className="text-[16px] font-normal leading-6">
-                  <Link>Home</Link>
+                  <Link
+                    to="/"
+                    onClick={handleClick}
+                    className={location.pathname === "/" ? "underline" : ""}
+                  >
+                    Home
+                  </Link>
                 </li>
                 <li className="text-[16px] font-normal leading-6">
-                  <Link>Contact</Link>
+                  <Link
+                    to="/contact"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/contact" ? "underline" : ""
+                    }
+                  >
+                    Contact
+                  </Link>
                 </li>
                 <li className="text-[16px] font-normal leading-6">
-                  <Link>About</Link>
+                  <Link
+                    to="/about"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/about" ? "underline" : ""
+                    }
+                  >
+                    About
+                  </Link>
                 </li>
                 <li className="text-[16px] font-normal leading-6">
-                  <Link>Sign Up</Link>
+                  <Link
+                    to="/register"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/register" ? "underline" : ""
+                    }
+                  >
+                    Sign Up
+                  </Link>
                 </li>
               </ul>
             </div>
