@@ -1,4 +1,4 @@
-import { categories, categories } from "../Data.js";
+import { categories } from "../Data.js";
 import categoryModel from "../models/category.model.js";
 import expressAsyncHandler from "express-async-handler";
 

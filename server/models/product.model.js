@@ -6,9 +6,11 @@ const ProductSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    thumbs: { type: String, require: true },
     images: [{ type: String }],
+    colors: [{ type: String }],
     price: { type: Number, require: true },
-    description: { type: String, require: true },
+    description: [{ type: String, require: true }],
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Categories",
@@ -20,6 +22,8 @@ const ProductSchema = mongoose.Schema(
       discount: { type: Number, default: 0, require: true },
     },
     stock: { type: Number, require: true, default: 0 },
+    internal: [{ type: String, require: false }],
+    ram: [{ type: String, require: false }],
   },
   { timestamps: true }
 );
