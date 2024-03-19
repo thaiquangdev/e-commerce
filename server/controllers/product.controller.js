@@ -84,8 +84,31 @@ const getProduct = expressAsyncHandler(async (req, res) => {
       ...internalFilter,
     });
 
-    const products = await productModel.find();
-    res.json(products);
+    // get products
+
+    const products = await productModel
+      .find({
+        ...title,
+        ...categoryFilter,
+        ...internalFilter,
+      })
+      .limit(pageSize)
+      .skip(pageSize * (pageNumber - 1));
+
+    // get offer products
+    const offers = await productModel.aggregate([
+      { $match: { "saleOffer.status": true } }, // filter by status
+      { $sample: { size: 10 } }, // get random 10 products
+    ]);
+
+    // send products, page number, total page and offer
+
+    res.json({
+      products,
+      page: pageNumber,
+      pages: Math.ceil(count / pageSize),
+      offers,
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
