@@ -3,7 +3,7 @@ import Input from "./Input";
 import icons from "../utils/icons.js";
 import { useState } from "react";
 
-const { FiSearch } = icons;
+const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
@@ -80,15 +80,38 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-            <div className="flex items-center justify-center">
-              <Input
-                type="text"
-                place="What are you looking for?"
-                classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
-              />
-              <span className="bg-input-bg p-2">
-                <FiSearch />
-              </span>
+            <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center">
+                <Input
+                  type="text"
+                  place="What are you looking for?"
+                  classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
+                />
+                <span className="bg-input-bg p-2">
+                  <FiSearch />
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-4">
+                <Link>
+                  <FaRegHeart size="20px" />
+                </Link>
+                <Link>
+                  <IoCartOutline size="20px" />
+                </Link>
+                <div className="relative p-2 rounded-full bg-red flex items-center justify-center">
+                  <span className="hover:bg-gray-200">
+                    <LuUser2 size="20px" color="white" />
+                  </span>
+                </div>
+                <div class="relative">
+                  <button className="hover:bg-gray-200">Hover Me</button>
+                  <ul className="absolute hidden bg-white p-2 rounded shadow-lg top-full left-0 transition-all duration-300 opacity-0 hover:opacity-100">
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

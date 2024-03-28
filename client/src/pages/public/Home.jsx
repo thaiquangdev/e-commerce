@@ -4,6 +4,8 @@ import banner from "../../assets/images/banner.png";
 import apple from "../../assets/images/apple.png";
 import icons from "../../utils/icons";
 import { category } from "../../utils/constrain";
+import Product from "../../components/Product";
+import jbl_boombox from "../../assets/images/jbl_boombox.png";
 
 const { FiArrowRight } = icons;
 
@@ -75,12 +77,12 @@ const Home = () => {
             </h3>
 
             <div className="mt-4 mb-6">
-              <ul className="row mx-[-8px]">
+              <ul className="flex mx-[-8px]">
                 {category.map((item) => {
                   return (
                     <li
                       key={item.id}
-                      className="mx-2 py-[16px] border border-line w-full"
+                      className="mx-2 py-[16px] border border-line w-full text-center"
                     >
                       {/* {item.image} */}
                       <span>{item.title}</span>
@@ -103,7 +105,135 @@ const Home = () => {
               Best Selling Products
             </h3>
 
-            <div className="mt-4 mb-6"></div>
+            <div className="mt-4 mb-6">
+              <div className="row row-sm">
+                <div className="col-sm col-3">
+                  <Product />
+                </div>
+                <div className="col-sm col-3">
+                  <Product />
+                </div>
+                <div className="col-sm col-3">
+                  <Product />
+                </div>
+                <div className="col-sm col-3">
+                  <Product />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 mb-6">
+              <div className="row bg-black">
+                <div className="col-6 my-4 pl-6">
+                  <p className="text-green mt-5 text-[16px] font-semibold leading-[20px]">
+                    Categories
+                  </p>
+                  <h1 className="text-white my-[20px] text-[48px] font-semibold leading-[60px]">
+                    Enhance Your <br /> Music Experience
+                  </h1>
+                  <div className="">
+                    <ul className="flex items-center gap-5">
+                      <li className="bg-white w-[62px] h-[62px] rounded-full flex flex-col items-center justify-center">
+                        <span className="text-[16px] font-semibold leading-[20px] text-center">
+                          5
+                        </span>
+                        <span className="text-[11px] leading-[18px] text-center">
+                          Days
+                        </span>
+                      </li>
+                      <li className="bg-white w-[62px] h-[62px] rounded-full flex flex-col items-center justify-center">
+                        <span className="text-[16px] font-semibold leading-[20px] text-center">
+                          23
+                        </span>
+                        <span className="text-[11px] leading-[18px] text-center">
+                          Hours
+                        </span>
+                      </li>
+                      <li className="bg-white w-[62px] h-[62px]  rounded-full flex flex-col items-center justify-center">
+                        <span className="text-[16px] font-semibold leading-[20px] text-center">
+                          59
+                        </span>
+                        <span className="text-[11px] leading-[18px] text-center">
+                          Minutes
+                        </span>
+                      </li>
+                      <li className="bg-white  w-[62px] h-[62px]  rounded-full flex flex-col items-center justify-center">
+                        <span className="text-[16px] font-semibold leading-[20px] text-center">
+                          35
+                        </span>
+                        <span className="text-[11px] leading-[18px] text-center">
+                          Seconds
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="mt-6">
+                    <Link className="rounded-sm py-2 px-6 bg-green text-white text-[16px] leading-[24px] font-medium">
+                      Buy Now!
+                    </Link>
+                  </div>
+                </div>
+                <div className="col-6 my-4 px-4">
+                  <img src={jbl_boombox} alt="" className="" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 mb-6">
+              <div className="py-2">
+                <span className="bg-red py-1 px-2 rounded-sm"></span>
+                <span className="text-red text-[16px] font-semibold pl-3">
+                  Our Product
+                </span>
+              </div>
+              <h3 className="text-[30px] leading-[48px] font-semibold">
+                Explore Our Products
+              </h3>
+              <div className="row row-sm mt-2">
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+                <div className="col-sm col-3 mt-[12px]">
+                  <Product />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center justify-center">
+                <Link className="px-6 py-3 rounded-sm bg-red text-white text-[16px] font-medium leading-[24px]">
+                  View All Products
+                </Link>
+              </div>
+            </div>
+            <div className="mt-4 mb-6">
+              <div className="py-2">
+                <span className="bg-red py-1 px-2 rounded-sm"></span>
+                <span className="text-red text-[16px] font-semibold pl-3">
+                  Featured
+                </span>
+              </div>
+              <h3 className="text-[30px] leading-[48px] font-semibold">
+                New Arrival
+              </h3>
+              <div className="row row-sm">
+                <div className="col-6 col-sm"></div>
+                <div className="col-6 col-sm"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

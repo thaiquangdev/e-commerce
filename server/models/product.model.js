@@ -11,12 +11,11 @@ const ProductSchema = mongoose.Schema(
     colors: [{ type: String }],
     price: { type: Number, require: true },
     description: [{ type: String, require: true }],
+    brand: { type: String, require: true },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Categories",
+      type: String,
       require: true,
     },
-    tags: [{ type: String }],
     saleOffer: {
       status: { type: Boolean, default: false, require: true },
       discount: { type: Number, default: 0, require: true },

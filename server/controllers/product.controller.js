@@ -32,11 +32,11 @@ const createProduct = expressAsyncHandler(async (req, res) => {
       thumb,
       images,
       colors,
-      tags,
       category,
       salesOffer,
       internal,
       ram,
+      stock,
     } = req.body;
     const product = new productModel({
       title,
@@ -45,11 +45,11 @@ const createProduct = expressAsyncHandler(async (req, res) => {
       thumb,
       images,
       colors,
-      tags,
       category,
       salesOffer,
       internal,
       ram,
+      stock,
     });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
@@ -72,7 +72,7 @@ const getProduct = expressAsyncHandler(async (req, res) => {
     const internalFilter = internal ? { internal: { $in: internal } } : {};
 
     // search by title
-    const title = search ? { title: { $regex: search, $option: "i" } } : {};
+    const title = search ? { title: { $regex: search, $options: "i" } } : {};
 
     // filter by category
     const categoryFilter = category ? { category } : {};
@@ -121,8 +121,68 @@ const getProduct = expressAsyncHandler(async (req, res) => {
 const getProductById = expressAsyncHandler(async (req, res) => {
   try {
     const product = await productModel.findById(req.params.id);
+    // get related products
+    const relatedProduct = await productModel
+      .find({
+        category: product.category,
+        _id: { $ne: product._id }, // not include the product itself
+      })
+      .limit(4);
     if (product) {
-      res.json(product);
+      res.json({ product, relatedProduct });
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// @desc update product by id
+// @route PUT /api/products/:id
+// @access Private/admin
+
+const updateProduct = expressAsyncHandler(async (req, res) => {
+  try {
+    const {
+      title,
+      price,
+      description,
+      images,
+      category,
+      salesOffer,
+      stock,
+      brand,
+    } = req.body;
+    const product = await productModel.findById(req.params.id);
+    if (product) {
+      product.title = title || product.title;
+      product.price = price || product.price;
+      product.description = description || product.description;
+      product.images = images || product.images;
+      product.category = category || product.category;
+      product.salesOffer = salesOffer || product.salesOffer;
+      product.stock = stock || product.stock;
+      product.brand = brand || product.brand;
+      const updateProduct = await product.save();
+      res.json(updateProduct);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// @desc delete product by id
+// @router DELETE /api/products/:id
+// @access Private/admin
+
+const deleteProduct = expressAsyncHandler(async (req, res) => {
+  try {
+    const product = await productModel.findByIdAndDelete(req.params.id);
+    if (product) {
+      res.json({ message: "Product removed" });
     } else {
       res.status(404).json({ message: "Product not found" });
     }
@@ -132,4 +192,11 @@ const getProductById = expressAsyncHandler(async (req, res) => {
 });
 
 // export all products
-export { importProducts, createProduct, getProduct, getProductById };
+export {
+  importProducts,
+  createProduct,
+  getProduct,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+};

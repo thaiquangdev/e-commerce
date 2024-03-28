@@ -11,6 +11,8 @@ export default {
         white: "#fff",
         line: "#D9DBE9",
         red: "#DB4444",
+        "yellow-star": "#FFAD33",
+        green: "#00FF66",
       },
     },
   },
