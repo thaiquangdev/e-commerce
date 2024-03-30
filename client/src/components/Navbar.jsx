@@ -1,16 +1,27 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Input from "./Input";
 import icons from "../utils/icons.js";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../redux/actions/userAction.js";
+import toast from "react-hot-toast";
 
 const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setIsActive(true);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+    toast.success("Logout successfull");
+    navigate("/login");
   };
 
   return (
@@ -35,7 +46,7 @@ const Navbar = () => {
               <h1 className="text-[24px] font-bold">Exclusive</h1>
             </div>
             <div>
-              <ul className="flex items-center justify-center gap-12">
+              <ul className="flex items-center justify-center gap-10">
                 <li className="text-[16px] font-normal leading-6">
                   <Link
                     to="/"
@@ -43,6 +54,17 @@ const Navbar = () => {
                     className={location.pathname === "/" ? "underline" : ""}
                   >
                     Home
+                  </Link>
+                </li>
+                <li className="text-[16px] font-normal leading-6">
+                  <Link
+                    to="/products"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/products" ? "underline" : ""
+                    }
+                  >
+                    Products
                   </Link>
                 </li>
                 <li className="text-[16px] font-normal leading-6">
@@ -98,17 +120,19 @@ const Navbar = () => {
                 <Link>
                   <IoCartOutline size="20px" />
                 </Link>
-                <div className="relative p-2 rounded-full bg-red flex items-center justify-center">
-                  <span className="hover:bg-gray-200">
+                <div className="relative group p-2 rounded-full bg-red flex items-center justify-center cursor-pointer">
+                  <span>
                     <LuUser2 size="20px" color="white" />
                   </span>
-                </div>
-                <div class="relative">
-                  <button className="hover:bg-gray-200">Hover Me</button>
-                  <ul className="absolute hidden bg-white p-2 rounded shadow-lg top-full left-0 transition-all duration-300 opacity-0 hover:opacity-100">
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
+                  <ul className="p-3 hidden absolute left-[-10px] top-[36px] bg-white text-black text-[18px] group-hover:block w-full transition-all z-100">
+                    <li>
+                      <a href="#">Profile</a>
+                    </li>
+                    <li>
+                      <a href="#" onClick={handleLogout}>
+                        Logout
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>

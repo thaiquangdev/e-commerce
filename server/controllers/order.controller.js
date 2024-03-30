@@ -24,7 +24,7 @@ const createOrder = expressAsyncHandler(async (req, res) => {
     });
     const createdOrder = await order.save();
     // send to client order
-    res.status(201).json(createOrder);
+    res.status(201).json(createdOrder);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -4,6 +4,9 @@ import Layout from "./layouts/Layout";
 import Home from "./pages/public/Home";
 import Register from "./pages/public/Register";
 import Login from "./pages/public/Login";
+import { protectedRoute } from "./protectedRoute";
+
+// protedroute order, dashboard, profile, password
 
 function App() {
   return (
