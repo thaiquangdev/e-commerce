@@ -11,18 +11,18 @@ const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
   const handleClick = () => {
     setIsActive(true);
   };
 
-  const handleLogout = () => {
-    dispatch(logoutAction());
-    toast.success("Logout successfull");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   dispatch(logoutAction());
+  //   toast.success("Logout successfull");
+  //   navigate("/login");
+  // };
 
   return (
     <div>
@@ -120,20 +120,10 @@ const Navbar = () => {
                 <Link>
                   <IoCartOutline size="20px" />
                 </Link>
-                <div className="relative group p-2 rounded-full bg-red flex items-center justify-center cursor-pointer">
-                  <span>
+                <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">
+                  <Link to="/dashboard">
                     <LuUser2 size="20px" color="white" />
-                  </span>
-                  <ul className="p-3 hidden absolute left-[-10px] top-[36px] bg-white text-black text-[18px] group-hover:block w-full transition-all z-100">
-                    <li>
-                      <a href="#">Profile</a>
-                    </li>
-                    <li>
-                      <a href="#" onClick={handleLogout}>
-                        Logout
-                      </a>
-                    </li>
-                  </ul>
+                  </Link>
                 </div>
               </div>
             </div>

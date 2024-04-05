@@ -50,32 +50,32 @@ export const siderBar = [
 export const category = [
   {
     id: 1,
-    title: "Phones",
+    title: "Smartphone",
     // image: <HiOutlineDevicePhoneMobile />,
   },
   {
     id: 2,
-    title: "Computers",
+    title: "Laptop",
     // image: <HiOutlineDesktopComputer />,
   },
   {
     id: 3,
-    title: "SmartWatch",
+    title: "tablet",
     // image: <BsSmartwatch />,
   },
   {
     id: 4,
-    title: "Camera",
+    title: "Headphone",
     // image: <CiCamera />,
   },
   {
     id: 5,
-    title: "Headphones",
+    title: "Smartwatch",
     // image: <CiHeadphones />,
   },
   {
     id: 6,
-    title: "Gaming",
+    title: "Watch",
     // image: <TbDeviceGamepad />,
   },
 ];

@@ -4,7 +4,12 @@ import Layout from "./layouts/Layout";
 import Home from "./pages/public/Home";
 import Register from "./pages/public/Register";
 import Login from "./pages/public/Login";
-import { protectedRoute } from "./protectedRoute";
+import Dashboard from "./pages/public/Dashboard";
+import Profile from "./pages/public/Profile";
+import Order from "./pages/public/Order";
+import ChangePassword from "./pages/public/ChangePassword";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Products from "./pages/public/Products";
 
 // protedroute order, dashboard, profile, password
 
@@ -17,6 +22,13 @@ function App() {
             <Route path={path.register} element={<Register />} />
             <Route path={path.login} element={<Login />} />
             <Route path={path.home} element={<Home />} />
+            <Route path={path.products} element={<Products />} />
+            <Route path={path.dashboardLayout} element={<DashboardLayout />}>
+              <Route path={path.dashboard} element={<Dashboard />} />
+              <Route path={path.profile} element={<Profile />} />
+              <Route path={path.order} element={<Order />} />
+              <Route path={path.changePassword} element={<ChangePassword />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

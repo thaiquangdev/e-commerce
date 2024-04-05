@@ -33,6 +33,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
       images,
       colors,
       category,
+      brand,
       salesOffer,
       internal,
       ram,

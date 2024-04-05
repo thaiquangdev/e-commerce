@@ -85,7 +85,9 @@ const Home = () => {
                       className="mx-2 py-[16px] border border-line w-full text-center"
                     >
                       {/* {item.image} */}
-                      <span>{item.title}</span>
+                      <span>
+                        <Link to={item.title}>{item.title}</Link>
+                      </span>
                     </li>
                   );
                 })}
