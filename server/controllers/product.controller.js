@@ -28,6 +28,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
     const {
       title,
       price,
+      priceOld,
       description,
       thumb,
       images,
@@ -42,6 +43,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
     const product = new productModel({
       title,
       price,
+      priceOld,
       description,
       thumb,
       images,
@@ -148,6 +150,7 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
     const {
       title,
       price,
+      priceOld,
       description,
       images,
       category,

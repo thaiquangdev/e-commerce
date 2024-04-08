@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { productsService } from "../../api/productApi";
 import { useEffect } from "react";
+import { bannerProductsService } from "../../api/bannerProductApi";
 
 const Products = () => {
   var settings = {
@@ -20,13 +21,20 @@ const Products = () => {
 
   const { category } = useParams();
   const [productsData, setProductsData] = useState(null);
+  const [bannerProductsData, setBannerProductsData] = useState(null);
+
+  const fetchBannerProductByCategory = async (category) => {
+    const response = await bannerProductsService({ category });
+    setBannerProductsData(response);
+  };
 
   const fetchProductByCategory = async (category) => {
-    const response = await productsService(category);
+    const response = await productsService({ category });
     setProductsData(response);
   };
 
   useEffect(() => {
+    fetchBannerProductByCategory(category);
     fetchProductByCategory(category);
   }, []);
 

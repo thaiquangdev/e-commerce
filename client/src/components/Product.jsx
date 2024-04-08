@@ -7,14 +7,14 @@ const { FaStar } = icons;
 const Product = ({ data }) => {
   return (
     <div className="p-3 border-solid border-[1px] border-[#ccc] rounded-md">
-      <NavLink>
+      <NavLink to={`/${data?.category}/${data?._id}`}>
         <img
           src={data?.thumbs}
           alt=""
           className="w-full h-full object-contain"
         />
         <div className="my-2">
-          <h3 className="text-[18px] font-medium leading-6">{data?.title}</h3>
+          <h3 className="text-[16px] font-medium leading-6">{data?.title}</h3>
           <p className="text-[14px] text-red font-medium leading-6">
             {formattedPrice(data?.price)}
             <span className="text-black line-through">34.990.000₫</span>

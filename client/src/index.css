@@ -155,3 +155,8 @@ ul {
 .slick-dots li {
   margin: 0 5px; /* Khoảng cách giữa các dấu chấm */
 }
+
+.slider-container {
+  width: 100%; /* Đảm bảo chiều rộng của Slider chiếm đầy màn hình */
+  height: 400px; /* Đặt chiều cao của Slider */
+}

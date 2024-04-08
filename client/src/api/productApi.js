@@ -3,12 +3,17 @@ import axios from "axios";
 // ****************** Public API ******************
 // get all products API
 const productsService = async (params) => {
-  const { data } = await axios.get(
-    "http://localhost:5500/api/products/",
-    params
-  );
+  const { data } = await axios.get("http://localhost:5500/api/products", {
+    params: params,
+  });
 
   return data;
 };
 
-export { productsService };
+const productService = async (pid) => {
+  const { data } = await axios.get("http://localhost:5500/api/products/" + pid);
+
+  return data;
+};
+
+export { productsService, productService };

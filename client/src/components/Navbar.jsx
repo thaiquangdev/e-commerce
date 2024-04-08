@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../redux/actions/userAction.js";
 import toast from "react-hot-toast";
+import Breadcrumb from "./Breadcrumb.jsx";
 
 const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
 
@@ -61,7 +62,7 @@ const Navbar = () => {
                     to="/products"
                     onClick={handleClick}
                     className={
-                      location.pathname === "/products" ? "underline" : ""
+                      location.pathname === "/:category" ? "underline" : ""
                     }
                   >
                     Products
@@ -128,6 +129,11 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="max-w-1170 mx-auto">
+        <div className="mt-[30px]">
+          <Breadcrumb />
         </div>
       </div>
     </div>
