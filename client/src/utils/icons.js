@@ -13,6 +13,8 @@ import {
   FaRegListAlt,
   FaRegArrowAltCircleDown,
   FaCheckCircle,
+  FaArrowRight,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineDesktopComputer } from "react-icons/hi";
@@ -53,6 +55,8 @@ const icons = {
   GiCancel,
   FaRegArrowAltCircleDown,
   FaCheckCircle,
+  FaArrowLeft,
+  FaArrowRight,
 };
 
 export default icons;

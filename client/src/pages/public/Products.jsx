@@ -7,6 +7,7 @@ import { useState } from "react";
 import { productsService } from "../../api/productApi";
 import { useEffect } from "react";
 import { bannerProductsService } from "../../api/bannerProductApi";
+import Pagination from "../../components/Pagination";
 
 const Products = () => {
   var settings = {
@@ -36,7 +37,7 @@ const Products = () => {
   useEffect(() => {
     fetchBannerProductByCategory(category);
     fetchProductByCategory(category);
-  }, []);
+  }, [category]);
 
   return (
     <div>
@@ -91,6 +92,13 @@ const Products = () => {
               </div>
             );
           })}
+        </div>
+        <div className="flex items-center justify-center my-[20px]">
+          <Pagination
+            total={productsData?.totalProduct}
+            limit={productsData?.pageSize}
+            page={productsData?.pageNumber}
+          />
         </div>
       </div>
     </div>

@@ -6,4 +6,10 @@ const formattedPrice = (price) => {
   return formattedPrice;
 };
 
-export { formattedPrice };
+const renderRangeNumber = (start, end) => {
+  const length = end - start + 1;
+
+  return Array.from({ length }, (_, index) => start + index);
+};
+
+export { formattedPrice, renderRangeNumber };

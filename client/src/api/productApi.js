@@ -4,7 +4,7 @@ import axios from "axios";
 // get all products API
 const productsService = async (params) => {
   const { data } = await axios.get("http://localhost:5500/api/products", {
-    params: params,
+    params,
   });
 
   return data;
