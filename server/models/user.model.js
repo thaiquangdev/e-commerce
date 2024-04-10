@@ -25,10 +25,35 @@ const UserSchema = mongoose.Schema(
       default:
         "https://ui-avatars.com/api/?background=DDEDFC&color=3474E3&name=Profile&size=1",
     },
-    isAdmin: {
-      type: Boolean,
-      require: true,
-      default: false,
+    role: {
+      type: String,
+      default: "user",
+    },
+    cart: {
+      type: Array,
+      default: [],
+    },
+    wishlist: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Products",
+      },
+    ],
+    address: {
+      type: Array,
+      default: [],
+    },
+    refreshToken: {
+      type: String,
+    },
+    passwordChangeAt: {
+      type: String,
+    },
+    passwordResetToken: {
+      type: String,
+    },
+    passwordResetExpire: {
+      type: String,
     },
   },
   { timestamps: true }

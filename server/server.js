@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParse from "cookie-parser";
 import { connectDb } from "./config/connectDb.js";
 import { initalRoute } from "./routes/index.js";
 import { errorHandler } from "./middlewares/Error.middleware.js";
@@ -9,6 +10,7 @@ import { errorHandler } from "./middlewares/Error.middleware.js";
 dotenv.config();
 const app = express();
 app.use(cors());
+app.use(cookieParse());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

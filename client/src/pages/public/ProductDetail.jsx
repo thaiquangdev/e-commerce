@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { productService } from "../../api/productApi";
+import { apiGetProduct } from "../../api/productApi";
 import { useParams, Link } from "react-router-dom";
 import icons from "../../utils/icons";
 import { formattedPrice } from "../../utils/helper";
@@ -27,7 +27,7 @@ const ProductDetail = () => {
 
   const fetchProductData = async () => {
     try {
-      const response = await productService(pid);
+      const response = await apiGetProduct(pid);
       setProduct(response);
       if (response?.product?.images.length > 0) {
         setSelectedImage(response.product.images[0]);

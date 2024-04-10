@@ -8,6 +8,7 @@ router.post("/login", userController.login);
 router.post("/", userController.register);
 
 router.put("/", protect, userController.updateProfile);
+router.put("/", protect, userController.updateUserAddress);
 router.put("/change-password", protect, userController.changePassword);
 
 router.delete("/", protect, userController.deleteUser);

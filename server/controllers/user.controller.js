@@ -2,7 +2,10 @@ import { users } from "../Data.js";
 import userModel from "../models/user.model.js";
 import expressAsyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
-import { generateToken } from "../middlewares/Auth.middleware.js";
+import {
+  generateToken,
+  generateRefreshToken,
+} from "../middlewares/Auth.middleware.js";
 
 // @desc Import all users
 // @route POST /api/users/import/all
@@ -28,6 +31,17 @@ const login = expressAsyncHandler(async (req, res) => {
     if (user) {
       // compare password
       if (bcrypt.compareSync(password, user.password)) {
+        const accessToken = generateToken(user._id);
+        const refreshToken = generateRefreshToken(user._id);
+        await userModel.findByIdAndUpdate(
+          user._id,
+          { refreshToken },
+          { new: true }
+        );
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
         res.json({
           _id: user._id,
           name: user.fullname,
@@ -35,7 +49,7 @@ const login = expressAsyncHandler(async (req, res) => {
           phone: user.phone,
           image: user.image,
           isAdmin: user.isAdmin,
-          token: generateToken(user._id), // generate token for authentication in the fontend
+          token: accessToken, // generate token for authentication in the fontend
         });
       } else {
         res.status(401).json({ message: "Invalid passowrd" });
@@ -178,6 +192,18 @@ const deleteUser = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const updateUserAddress = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const response = await userModel
+      .findByIdAndUpdate(_id, { address: req.body.address }, { new: true })
+      .select("-password -role -refreshToken");
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
 export {
   importUser,
   login,
@@ -185,4 +211,5 @@ export {
   updateProfile,
   changePassword,
   deleteUser,
+  updateUserAddress,
 };

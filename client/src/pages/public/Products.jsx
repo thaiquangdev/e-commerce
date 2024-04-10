@@ -2,10 +2,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Product from "../../components/Product";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { productsService } from "../../api/productApi";
-import { useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { apiGetProducts } from "../../api/productApi";
 import { bannerProductsService } from "../../api/bannerProductApi";
 import Pagination from "../../components/Pagination";
 
@@ -23,21 +22,35 @@ const Products = () => {
   const { category } = useParams();
   const [productsData, setProductsData] = useState(null);
   const [bannerProductsData, setBannerProductsData] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  console.log(bannerProductsData);
 
   const fetchBannerProductByCategory = async (category) => {
-    const response = await bannerProductsService({ category });
-    setBannerProductsData(response);
+    try {
+      const response = await bannerProductsService({ category });
+      setBannerProductsData(response);
+    } catch (error) {
+      console.error("Error fetching banner products:", error);
+    }
   };
 
-  const fetchProductByCategory = async (category) => {
-    const response = await productsService({ category });
-    setProductsData(response);
+  const fetchProductByCategory = async (params) => {
+    try {
+      const response = await apiGetProducts({ category, ...params });
+      setProductsData(response);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   useEffect(() => {
-    fetchBannerProductByCategory(category);
-    fetchProductByCategory(category);
-  }, [category]);
+    if (category) {
+      fetchBannerProductByCategory(category);
+      const searchObject = Object.fromEntries([...searchParams]);
+      fetchProductByCategory(searchObject);
+    }
+  }, [category, searchParams]);
 
   return (
     <div>
@@ -46,24 +59,13 @@ const Products = () => {
           <div className="col-8 col-sm">
             <div>
               <Slider {...settings}>
-                <div>
-                  <img
-                    src="https://cdn.tgdd.vn/2024/03/banner/a3555-800-200-800x200-1.png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    src="https://cdn.tgdd.vn/2024/04/banner/ip13-1200-300-1200x300.png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    src="https://cdn.tgdd.vn/2024/03/banner/a38-800-200-800x200-3.png"
-                    alt=""
-                  />
-                </div>
+                {bannerProductsData?.imagesBanner?.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <img src={item} alt="" />
+                    </div>
+                  );
+                })}
               </Slider>
             </div>
           </div>
@@ -85,19 +87,17 @@ const Products = () => {
           </div>
         </div>
         <div className="row .row-s">
-          {productsData?.products.map((item) => {
-            return (
-              <div className="col-3 col-s pb-[8px]" key={item?._id}>
-                <Product data={item} />
-              </div>
-            );
-          })}
+          {productsData?.products.map((item) => (
+            <div className="col-3 col-s pb-[8px]" key={item?._id}>
+              <Product data={item} />
+            </div>
+          ))}
         </div>
         <div className="flex items-center justify-center my-[20px]">
           <Pagination
             total={productsData?.totalProduct}
             limit={productsData?.pageSize}
-            page={productsData?.pageNumber}
+            page={productsData?.page}
           />
         </div>
       </div>

@@ -24,6 +24,17 @@ const ProductSchema = mongoose.Schema(
     stock: { type: Number, require: true, default: 0 },
     internal: [{ type: String, require: false }],
     ram: [{ type: String, require: false }],
+    ratings: [
+      {
+        star: { type: Number },
+        postedBy: { type: mongoose.Types.ObjectId, ref: "Users" },
+        comment: { type: String },
+      },
+    ],
+    totalRatings: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

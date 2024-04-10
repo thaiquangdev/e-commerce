@@ -67,9 +67,9 @@ const createProduct = expressAsyncHandler(async (req, res) => {
 
 const getProduct = expressAsyncHandler(async (req, res) => {
   try {
-    const { category, search, internal } = req.body;
+    const { category, search, internal } = req.query;
     const pageSize = 12;
-    const pageNumber = Number(req.query.pageNumber) || 1;
+    const page = Number(req.query.page) || 1;
 
     // filter by tag
     const internalFilter = internal ? { internal: { $in: internal } } : {};
@@ -98,7 +98,7 @@ const getProduct = expressAsyncHandler(async (req, res) => {
         ...internalFilter,
       })
       .limit(pageSize)
-      .skip(pageSize * (pageNumber - 1));
+      .skip(pageSize * (page - 1));
 
     // get offer products
     const offers = await productModel.aggregate([
@@ -110,7 +110,7 @@ const getProduct = expressAsyncHandler(async (req, res) => {
 
     res.json({
       products,
-      pageNumber,
+      page,
       pages: Math.ceil(count / pageSize),
       pageSize,
       totalProduct: count,
@@ -199,6 +199,25 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const uploadImageProduct = expressAsyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!req.files) res.status(404).json({ message: "file not found" });
+    const response = await productModel.findByIdAndUpdate(
+      id,
+      {
+        $push: { images: { $earch: req.files.map((item) => item.path) } },
+      },
+      { new: true }
+    );
+    res.status(201).json({
+      response,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // export all products
 export {
   importProducts,
@@ -207,4 +226,5 @@ export {
   getProductById,
   updateProduct,
   deleteProduct,
+  uploadImageProduct,
 };

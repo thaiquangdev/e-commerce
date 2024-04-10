@@ -7,6 +7,14 @@ const generateToken = (id) => {
   return jwt.sign(
     { id },
     process.env.JWT_SECRET,
+    { expiresIn: "10d" } // token will expire in 30 days
+  );
+};
+
+const generateRefreshToken = (id) => {
+  return jwt.sign(
+    { id },
+    process.env.JWT_SECRET,
     { expiresIn: "30d" } // token will expire in 30 days
   );
 };
@@ -38,4 +46,4 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   }
 });
 
-export { generateToken, protect };
+export { generateToken, generateRefreshToken, protect };
