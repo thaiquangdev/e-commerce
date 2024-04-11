@@ -1,30 +1,19 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bannerLogin from "../../assets/images/bannerLogin.png";
 import Input from "../../components/Input";
 
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../../redux/actions/userAction";
+import { fetchUserLogin } from "../../redux/user/userSlice";
+import { loginSchema } from "../../utils/validation";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 
 // validation for yup
-const Schema = Yup.object().shape({
-  email: Yup.string().email().required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const redirect = state?.from ? state.from : "/";
-
-  // states
-  const {
-    userLogin: { loading, userInfo, error },
-  } = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
 
   // formik
   const formik = useFormik({
@@ -32,23 +21,17 @@ const Login = () => {
       email: "",
       password: "",
     },
-    validationSchema: Schema,
-    onSubmit: (values) => {
-      dispatch(loginAction(values));
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {
+      dispatch(fetchUserLogin(values));
     },
   });
 
-  // error handler
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch({ type: "USER_LOGIN_RESET" });
+    if (user?.user?.data !== null && user?.isSuccess === true) {
+      navigate("/");
     }
-    // if user logged in redirect to home page
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [dispatch, error, userInfo, navigate, redirect]);
+  }, [user]);
 
   return (
     <div className="max-w-1170 mx-auto">

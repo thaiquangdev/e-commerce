@@ -1,10 +1,7 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Input from "./Input";
 import icons from "../utils/icons.js";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logoutAction } from "../redux/actions/userAction.js";
-import toast from "react-hot-toast";
 import Breadcrumb from "./Breadcrumb.jsx";
 
 const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
@@ -12,18 +9,10 @@ const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const location = useLocation();
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const handleClick = () => {
     setIsActive(true);
   };
-
-  // const handleLogout = () => {
-  //   dispatch(logoutAction());
-  //   toast.success("Logout successfull");
-  //   navigate("/login");
-  // };
 
   return (
     <div>
@@ -55,17 +44,6 @@ const Navbar = () => {
                     className={location.pathname === "/" ? "underline" : ""}
                   >
                     Home
-                  </Link>
-                </li>
-                <li className="text-[16px] font-normal leading-6">
-                  <Link
-                    to="/products"
-                    onClick={handleClick}
-                    className={
-                      location.pathname === "/:category" ? "underline" : ""
-                    }
-                  >
-                    Products
                   </Link>
                 </li>
                 <li className="text-[16px] font-normal leading-6">
@@ -115,10 +93,10 @@ const Navbar = () => {
                 </span>
               </div>
               <div className="flex items-center justify-center gap-4">
-                <Link>
+                <Link to="/wishlist">
                   <FaRegHeart size="20px" />
                 </Link>
-                <Link>
+                <Link to="/cart">
                   <IoCartOutline size="20px" />
                 </Link>
                 <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">

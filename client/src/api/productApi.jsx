@@ -9,8 +9,8 @@ export const apiGetProducts = async (params) =>
     params,
   });
 
-export const apiGetProduct = async (pid) =>
+export const apiGetProduct = async (id) =>
   axios({
-    url: "/v1/get-product/" + pid,
+    url: "http://localhost:5500/api/products/" + id,
     method: "get",
   });

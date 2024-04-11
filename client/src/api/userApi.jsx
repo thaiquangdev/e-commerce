@@ -1,22 +1,30 @@
 import axios from "axios";
 
 // ****************** Public API ******************
+// register user API
+const apiRegister = (data) =>
+  axios({
+    url: "http://localhost:5500/api/users/",
+    method: "post",
+    data,
+  });
+
 // login user API
-const loginService = async (user) => {
-  const { data } = await axios.post(
-    "http://localhost:5500/api/users/login",
-    user
-  );
-  if (data) {
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  }
-  return data;
-};
+const apiLogin = (data) =>
+  axios({
+    url: "http://localhost:5500/api/users/login",
+    method: "post",
+    data,
+  });
 
-// logout
-const logoutService = async () => {
-  localStorage.removeItem("userInfo");
-  return null;
-};
+// logout user API
+const apiLogout = (user) =>
+  axios({
+    url: "http://localhost:5500/api/users/logout",
+    method: "put",
+    headers: {
+      Authorization: `Bearer ${user}`,
+    },
+  });
 
-export { loginService, logoutService };
+export { apiRegister, apiLogin, apiLogout };

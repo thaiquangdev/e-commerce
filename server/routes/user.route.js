@@ -9,6 +9,9 @@ router.post("/", userController.register);
 
 router.put("/", protect, userController.updateProfile);
 router.put("/", protect, userController.updateUserAddress);
+router.put("/refreshtoken", protect, userController.refreshAccessToken);
+router.put("/:pid", protect, userController.addToWishlist);
+router.get("/logout", protect, userController.logout);
 router.put("/change-password", protect, userController.changePassword);
 
 router.delete("/", protect, userController.deleteUser);

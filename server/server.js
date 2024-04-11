@@ -9,10 +9,16 @@ import { errorHandler } from "./middlewares/Error.middleware.js";
 // dotenv config
 dotenv.config();
 const app = express();
-app.use(cors());
 app.use(cookieParse());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["POST", "PUT", "GET", "DELETE"],
+    credentials: true,
+  })
+);
 
 // connect database
 connectDb();

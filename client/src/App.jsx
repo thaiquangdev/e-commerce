@@ -10,6 +10,11 @@ import Order from "./pages/public/Order";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Products from "./pages/public/Products";
 import ProductDetail from "./pages/public/ProductDetail";
+import Cart from "./pages/public/Cart";
+import { ProtectedRoute } from "./ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Wishlist from "./pages/public/Wishlist";
 
 // protedroute order, dashboard, profile, password
 
@@ -27,14 +32,32 @@ function App() {
               path={path.detail_product_category_pid}
               element={<ProductDetail />}
             />
-            <Route path={path.dashboardLayout} element={<DashboardLayout />}>
-              <Route path={path.dashboard} element={<Dashboard />} />
-              <Route path={path.profile} element={<Profile />} />
-              <Route path={path.order} element={<Order />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path={path.dashboardLayout} element={<DashboardLayout />}>
+                <Route path={path.dashboard} element={<Dashboard />} />
+                <Route path={path.profile} element={<Profile />} />
+                <Route path={path.order} element={<Order />} />
+              </Route>
+              <Route path={path.cart} element={<Cart />} />
+              <Route path={path.wishlist} element={<Wishlist />} />
             </Route>
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </>
   );
 }

@@ -1,6 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import icons from "../utils/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserLogout } from "../redux/user/userSlice";
 
 const {
   RiGitRepositoryPrivateFill,
@@ -13,6 +15,20 @@ const {
 const Sidebar = () => {
   const [isActive, setIsActive] = useState(false);
   const location = useLocation();
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
+  const handleLogout = () => {
+    dispatch(fetchUserLogout(user?.data?.token))
+      .unwrap()
+      .then(() => {
+        Navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  };
 
   const handleClick = () => {
     setIsActive(true);
@@ -52,7 +68,9 @@ const Sidebar = () => {
           <Link to="/wishlist">My WishList</Link>
         </h3>
       </div>
-      <button className="btn">Log out</button>
+      <button className="btn" onClick={handleLogout}>
+        Log out
+      </button>
     </div>
   );
 };
