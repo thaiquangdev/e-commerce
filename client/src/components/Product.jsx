@@ -14,7 +14,9 @@ const Product = ({ data }) => {
           className="w-full h-full object-contain"
         />
         <div className="my-2">
-          <h3 className="text-[16px] font-medium leading-6">{data?.title}</h3>
+          <h3 className="text-[16px] font-medium leading-6 overflow-hidden whitespace-nowrap overflow-ellipsis">
+            {data?.title}
+          </h3>
           <p className="text-[14px] text-red font-medium leading-6">
             {formattedPrice(data?.price)}
             <span className="text-black line-through">34.990.000₫</span>

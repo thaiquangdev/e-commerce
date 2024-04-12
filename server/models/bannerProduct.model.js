@@ -5,14 +5,8 @@ const BannerProductSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  imagesBanner: {
-    type: Array,
-    require: true,
-  },
-  images: {
-    type: Array,
-    require: false,
-  },
+  imagesBanner: [{ type: String }],
+  images: [{ type: String }],
 });
 
 export default mongoose.model("BannerProducts", BannerProductSchema);

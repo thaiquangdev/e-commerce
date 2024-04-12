@@ -25,7 +25,7 @@ import { TbDeviceGamepad } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoCartOutline, IoSettingsOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdOutlineMenu } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
 
 const icons = {
@@ -50,6 +50,7 @@ const icons = {
   IoCartOutline,
   LuUser2,
   MdDashboard,
+  MdOutlineMenu,
   FaRegListAlt,
   IoSettingsOutline,
   GiCancel,

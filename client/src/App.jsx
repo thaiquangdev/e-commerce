@@ -15,6 +15,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Wishlist from "./pages/public/Wishlist";
+import PageNotFound from "./pages/public/PageNotFound";
 
 // protedroute order, dashboard, profile, password
 
@@ -41,6 +42,8 @@ function App() {
               <Route path={path.cart} element={<Cart />} />
               <Route path={path.wishlist} element={<Wishlist />} />
             </Route>
+            <Route path={path.not_found} element={<PageNotFound />} />
+            {/* <Redirect to={path.not_found} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

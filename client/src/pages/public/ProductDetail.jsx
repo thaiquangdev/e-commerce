@@ -8,6 +8,8 @@ import Product from "../../components/Product";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useDispatch } from "react-redux";
+import { fetchUpdateCart } from "../../redux/cart/cartSlice";
 
 const { FaStar, FaRegHeart } = icons;
 
@@ -20,10 +22,13 @@ const ProductDetail = () => {
     slidesToScroll: 1,
   };
 
+  const dispatch = useDispatch();
   const { pid } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState(null);
+  const [storage, setStorage] = useState(null);
 
   const fetchProductData = async () => {
     try {
@@ -44,12 +49,34 @@ const ProductDetail = () => {
 
   // Hàm xử lý khi nhấn nút giảm số lượng
   const decreaseQuantity = () => {
-    setQuantity((prevQuantity) => Math.max(1, prevQuantity + 1));
+    setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   };
 
   // hàm chọn ảnh
   const handleImageClick = (image) => {
     setSelectedImage(image);
+  };
+
+  // Hàm xử lý sự kiện khi chọn màu sắc
+  const handleColorSelection = (color) => {
+    setColor(color);
+  };
+
+  // Hàm xử lý sự kiện khi chọn màu sắc
+  const handleStorageSelection = (storage) => {
+    setStorage(storage);
+  };
+
+  // hàm thêm giỏ hàng
+  const handleAddToCart = (product, color, storage, quantity) => {
+    dispatch(
+      fetchUpdateCart({
+        productId: product,
+        color,
+        storage,
+        quantity,
+      })
+    );
   };
 
   useEffect(() => {
@@ -152,7 +179,12 @@ const ProductDetail = () => {
                   {product?.product?.colors.map((item, index) => {
                     return (
                       <li key={index} className="border p-2 rounded-md">
-                        <span className="text-[12px] ">{item}</span>
+                        <button
+                          className="text-[12px]"
+                          onClick={() => handleColorSelection(item)}
+                        >
+                          {item}
+                        </button>
                       </li>
                     );
                   })}
@@ -168,7 +200,12 @@ const ProductDetail = () => {
                         key={index}
                         className="border w-[70px] text-center p-2 rounded-md"
                       >
-                        <span className="text-[12px] ">{item}</span>
+                        <button
+                          onClick={() => handleStorageSelection(item)}
+                          className="text-[12px] "
+                        >
+                          {item}
+                        </button>
                       </li>
                     );
                   })}
@@ -197,9 +234,19 @@ const ProductDetail = () => {
                 </div>
                 <div>
                   <Link className="bg-red py-1 px-6 rounded-md">
-                    <span className="text-[16px] font-semibold leading-[24px] text-white">
+                    <button
+                      onClick={() =>
+                        handleAddToCart(
+                          product?.product?._id,
+                          color,
+                          storage,
+                          quantity
+                        )
+                      }
+                      className="text-[16px] font-semibold leading-[24px] text-white"
+                    >
                       Buy Now
-                    </span>
+                    </button>
                   </Link>
                 </div>
                 <div>

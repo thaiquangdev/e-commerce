@@ -82,7 +82,7 @@ const Home = () => {
                   return (
                     <li
                       key={item.id}
-                      className="mx-2 py-[16px] border border-line w-full text-center"
+                      className="mx-2 py-[16px] border border-line w-full text-center cursor-pointer"
                     >
                       {/* {item.image} */}
                       <span>

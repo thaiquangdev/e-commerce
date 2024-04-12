@@ -68,7 +68,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
 const getProduct = expressAsyncHandler(async (req, res) => {
   try {
     const { category, search, internal } = req.query;
-    const pageSize = 12;
+    const pageSize = 15;
     const page = Number(req.query.page) || 1;
 
     // filter by tag

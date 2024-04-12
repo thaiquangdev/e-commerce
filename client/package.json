@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "formik": "^2.4.5",

@@ -11,6 +11,7 @@ const path = {
   dashboard: "",
   order: "order",
   profile: "profile",
+  not_found: "not_found",
 };
 
 export default path;

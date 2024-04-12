@@ -44,7 +44,7 @@ const getBannerProducts = expressAsyncHandler(async (req, res) => {
   try {
     const { category } = req.query;
     const categoryFilter = category ? { category } : {};
-    const getBannerProducts = await bannerProductModel.find(categoryFilter);
+    const getBannerProducts = await bannerProductModel.findOne(categoryFilter);
     res.status(201).json(getBannerProducts);
   } catch (error) {
     res.status(400).json({ message: error.message });

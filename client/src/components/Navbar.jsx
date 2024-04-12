@@ -4,7 +4,7 @@ import icons from "../utils/icons.js";
 import { useState } from "react";
 import Breadcrumb from "./Breadcrumb.jsx";
 
-const { FiSearch, FaRegHeart, IoCartOutline, LuUser2 } = icons;
+const { FiSearch, FaRegHeart, IoCartOutline, LuUser2, MdOutlineMenu } = icons;
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <div>
       <div className="bg-black">
-        <div className="max-w-1170 mx-auto">
+        <div className="max-w-1170 mx-auto max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
           <p className="text-white py-3 flex justify-center items-center">
             <span className="pr-1 text-[14px] leading-[21px] font-normal ">
               Summer Sale For All Swim Suits And Free Express Delivery - OFF
@@ -30,13 +30,17 @@ const Navbar = () => {
         </div>
       </div>
       <div className="border-b-[1px] border-b-line">
-        <div className="max-w-1170 mx-auto">
-          <div className="flex items-center justify-between py-[25px] ">
-            <div>
+        <div className="max-w-1170 mx-auto max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
+          <div className="flex items-center py-[25px]">
+            <div className="w-3/12">
               <h1 className="text-[24px] font-bold">Exclusive</h1>
             </div>
-            <div>
-              <ul className="flex items-center justify-center gap-10">
+
+            <div className="flex w-9/12 justify-between ">
+              <div className="relative hidden max-[780px]:block">
+                <MdOutlineMenu />
+              </div>
+              <ul className="flex items-center justify-center gap-10 ">
                 <li className="text-[16px] font-normal leading-6">
                   <Link
                     to="/"
@@ -80,29 +84,29 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
-            </div>
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex items-center justify-center">
-                <Input
-                  type="text"
-                  place="What are you looking for?"
-                  classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
-                />
-                <span className="bg-input-bg p-2">
-                  <FiSearch />
-                </span>
-              </div>
               <div className="flex items-center justify-center gap-4">
-                <Link to="/wishlist">
-                  <FaRegHeart size="20px" />
-                </Link>
-                <Link to="/cart">
-                  <IoCartOutline size="20px" />
-                </Link>
-                <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">
-                  <Link to="/dashboard">
-                    <LuUser2 size="20px" color="white" />
+                <div className="flex items-center justify-center">
+                  <Input
+                    type="text"
+                    place="What are you looking for?"
+                    classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
+                  />
+                  <span className="bg-input-bg p-2">
+                    <FiSearch />
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-4 max-[780px]:flex-col">
+                  <Link to="/wishlist">
+                    <FaRegHeart size="20px" />
                   </Link>
+                  <Link to="/cart">
+                    <IoCartOutline size="20px" />
+                  </Link>
+                  <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">
+                    <Link to="/dashboard">
+                      <LuUser2 size="20px" color="white" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

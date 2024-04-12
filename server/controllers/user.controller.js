@@ -7,6 +7,7 @@ import {
   generateRefreshToken,
 } from "../middlewares/Auth.middleware.js";
 import jwt from "jsonwebtoken";
+import cartModel from "../models/cart.model.js";
 
 // @desc Import all users
 // @route POST /api/users/import/all
@@ -285,6 +286,37 @@ const addToWishlist = expressAsyncHandler(async (req, res) => {
 
 const getWishlist = expressAsyncHandler(async (req, res) => {
   try {
+    const { _id } = req.user;
+    const findUser = await userModel.findById(_id).populate("wishlist");
+    res.status(201).json(findUser);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+const updateCart = expressAsyncHandler(async (req, res) => {
+  try {
+    const { productId, color, storage, quantity, price } = req.body;
+    const { _id } = req.user;
+    const newCart = await new cartModel({
+      userId: _id,
+      productId,
+      color,
+      price,
+      storage,
+      quantity,
+    }).save();
+    res.status(201).json(newCart);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+const getUserCart = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const cart = await cartModel.findOne({ userId: _id }).populate("productId");
+    res.status(201).json(cart);
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
@@ -301,4 +333,7 @@ export {
   updateUserAddress,
   refreshAccessToken,
   addToWishlist,
+  getWishlist,
+  updateCart,
+  getUserCart,
 };

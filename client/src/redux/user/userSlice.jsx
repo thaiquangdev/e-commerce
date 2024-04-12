@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 export const fetchUserLogin = createAsyncThunk(
   "auth/loginUser",
-  async (data, { rejectWithValue }) => {
+  async (data, user, { rejectWithValue }) => {
     try {
-      const response = await apiLogin(data);
+      const response = await apiLogin(data, user);
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -19,9 +19,9 @@ export const fetchUserLogout = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const response = await apiLogout(user);
-      return response;
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -31,9 +31,9 @@ export const fetchUserRegister = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await apiRegister(data);
-      return response;
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.response.data);
     }
   }
 );

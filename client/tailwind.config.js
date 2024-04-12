@@ -5,6 +5,10 @@ export default {
     extend: {
       maxWidth: {
         1170: "1170px",
+        970: "970px",
+        840: "840px",
+        765: "765px",
+        640: "640px",
       },
       colors: {
         black: "#000",
@@ -14,7 +18,10 @@ export default {
         "yellow-star": "#FFAD33",
         green: "#00FF66",
       },
+      screens: {
+        tablet: "1024px",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };

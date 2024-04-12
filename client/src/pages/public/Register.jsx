@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import { registerSchema } from "../../utils/validation";
 import { fetchUserRegister } from "../../redux/user/userSlice";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -26,8 +25,7 @@ const Register = () => {
   });
 
   useEffect(() => {
-    if (user?.isSuccess === true) {
-      toast.success("please go to login");
+    if (user?.user?.data !== null && user?.isSuccess === true) {
       navigate("/login");
     }
   }, [user]);
