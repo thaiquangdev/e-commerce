@@ -27,6 +27,7 @@ import { IoCartOutline, IoSettingsOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { MdDashboard, MdOutlineMenu } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
+import { TiDelete } from "react-icons/ti";
 
 const icons = {
   FaInstagram,
@@ -58,6 +59,7 @@ const icons = {
   FaCheckCircle,
   FaArrowLeft,
   FaArrowRight,
+  TiDelete,
 };
 
 export default icons;

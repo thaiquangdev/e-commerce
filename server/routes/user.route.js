@@ -12,10 +12,16 @@ router.put("/", protect, userController.updateProfile);
 router.put("/", protect, userController.updateUserAddress);
 router.put("/refreshtoken", protect, userController.refreshAccessToken);
 router.put("/:pid", protect, userController.addToWishlist);
+router.put(
+  "/update-qty-card/:cid",
+  protect,
+  userController.updateUserQuantityCart
+);
 router.get("/logout", protect, userController.logout);
 router.get("/cart", protect, userController.getUserCart);
 router.put("/change-password", protect, userController.changePassword);
 
 router.delete("/", protect, userController.deleteUser);
+router.delete("/delete-cart/:cid", protect, userController.deleteUserCart);
 
 export default router;

@@ -53,6 +53,36 @@ const apiUpdateCart = (data) =>
     },
   });
 
+// get cart API
+const apiGetCart = () =>
+  axios({
+    url: "http://localhost:5500/api/users/cart",
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
+
+// delete cart API
+const apiDeleteCart = (cid) =>
+  axios({
+    url: `http://localhost:5500/api/users/delete-cart/${cid}`,
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
+
+// update quantity cart API
+const apiUpdateQuantityCart = (cid, newquantity) =>
+  axios({
+    url: `http://localhost:5500/api/users/update-qty-card/${cid}`,
+    method: "put",
+    data: newquantity,
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
 // logout user API
 const apiLogout = (user) =>
   axios({
@@ -63,4 +93,12 @@ const apiLogout = (user) =>
     },
   });
 
-export { apiRegister, apiLogin, apiLogout, apiUpdateCart };
+export {
+  apiRegister,
+  apiLogin,
+  apiLogout,
+  apiUpdateCart,
+  apiGetCart,
+  apiDeleteCart,
+  apiUpdateQuantityCart,
+};

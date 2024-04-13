@@ -19,9 +19,9 @@ export const fetchUserLogout = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const response = await apiLogout(user);
-      return response.data;
+      return response;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response);
     }
   }
 );
@@ -31,9 +31,9 @@ export const fetchUserRegister = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await apiRegister(data);
-      return response.data;
+      return response;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response);
     }
   }
 );
@@ -79,7 +79,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.user = action.payload;
+        state.userRegister = action.payload;
       })
       .addCase(fetchUserRegister.rejected, (state, action) => {
         state.isLoading = false;

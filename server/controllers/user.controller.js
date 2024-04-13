@@ -296,17 +296,27 @@ const getWishlist = expressAsyncHandler(async (req, res) => {
 
 const updateCart = expressAsyncHandler(async (req, res) => {
   try {
-    const { productId, color, storage, quantity, price } = req.body;
+    const { productId, color, storage, quantity, price, image } = req.body;
     const { _id } = req.user;
-    const newCart = await new cartModel({
-      userId: _id,
-      productId,
-      color,
-      price,
-      storage,
-      quantity,
-    }).save();
-    res.status(201).json(newCart);
+    const alreadyCartItem = await cartModel.findOne({ userId: _id, productId });
+    if (alreadyCartItem) {
+      alreadyCartItem.color = color || alreadyCartItem.color;
+      alreadyCartItem.storage = storage || alreadyCartItem.storage;
+      alreadyCartItem.quantity = quantity || alreadyCartItem.quantity;
+      await alreadyCartItem.save();
+      res.status(201).json(alreadyCartItem);
+    } else {
+      const newCart = await new cartModel({
+        userId: _id,
+        productId,
+        color,
+        price,
+        storage,
+        quantity,
+        image,
+      }).save();
+      res.status(201).json(newCart);
+    }
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
@@ -315,8 +325,38 @@ const updateCart = expressAsyncHandler(async (req, res) => {
 const getUserCart = expressAsyncHandler(async (req, res) => {
   try {
     const { _id } = req.user;
-    const cart = await cartModel.findOne({ userId: _id }).populate("productId");
+    const cart = await cartModel.find({ userId: _id }).populate("productId");
     res.status(201).json(cart);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+const deleteUserCart = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { cid } = req.params;
+    const cart = await cartModel.deleteOne({ userId: _id, _id: cid });
+    res.status(201).json(cart);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+const updateUserQuantityCart = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { cid } = req.params;
+    const { newquantity } = req.body;
+    console.log(newquantity);
+    const cartItem = await cartModel.findOne({ userId: _id, _id: cid });
+    if (cartItem) {
+      cartItem.quantity = Number(newquantity);
+      await cartItem.save();
+      res.status(201).json(cartItem);
+    } else {
+      res.status(201).json({ message: "Cart is not found" });
+    }
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
@@ -336,4 +376,6 @@ export {
   getWishlist,
   updateCart,
   getUserCart,
+  deleteUserCart,
+  updateUserQuantityCart,
 };

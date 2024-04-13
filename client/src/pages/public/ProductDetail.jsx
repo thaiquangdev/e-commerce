@@ -68,13 +68,14 @@ const ProductDetail = () => {
   };
 
   // hàm thêm giỏ hàng
-  const handleAddToCart = (product, color, storage, quantity) => {
+  const handleAddToCart = (product, color, storage, quantity, image) => {
     dispatch(
       fetchUpdateCart({
         productId: product,
         color,
         storage,
         quantity,
+        image,
       })
     );
   };
@@ -240,7 +241,8 @@ const ProductDetail = () => {
                           product?.product?._id,
                           color,
                           storage,
-                          quantity
+                          quantity,
+                          product?.product?.images[0]
                         )
                       }
                       className="text-[16px] font-semibold leading-[24px] text-white"
