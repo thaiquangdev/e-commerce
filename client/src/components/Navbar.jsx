@@ -8,10 +8,15 @@ const { FiSearch, FaRegHeart, IoCartOutline, LuUser2, MdOutlineMenu } = icons;
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const handleClick = () => {
     setIsActive(true);
+  };
+
+  const handleClickOpen = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -23,7 +28,10 @@ const Navbar = () => {
               Summer Sale For All Swim Suits And Free Express Delivery - OFF
               50%!
             </span>
-            <Link className="underline decoration-solid text-[14px] font-semibold leading-[21px]">
+            <Link
+              // to="/products"
+              className="underline decoration-solid text-[14px] font-semibold leading-[21px]"
+            >
               ShopNow
             </Link>
           </p>
@@ -31,16 +39,68 @@ const Navbar = () => {
       </div>
       <div className="border-b-[1px] border-b-line">
         <div className="max-w-1170 mx-auto max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
-          <div className="flex items-center py-[25px]">
-            <div className="w-3/12">
-              <h1 className="text-[24px] font-bold">Exclusive</h1>
-            </div>
-
-            <div className="flex w-9/12 justify-between ">
+          <div className="flex items-center py-[25px] ">
+            <div
+              className="w-3/12 flex items-center gap-2 max-[980px]:w-2/12 "
+              onClick={handleClickOpen}
+            >
               <div className="relative hidden max-[780px]:block">
-                <MdOutlineMenu />
+                <MdOutlineMenu size={20} />
               </div>
-              <ul className="flex items-center justify-center gap-10 ">
+              <ul
+                className={`min-[780px]:hidden absolute left-0 top-[46px] z-20 flex flex-col gap-2 items-center justify-center w-1/3 h-screen bg-white ${
+                  isOpen ? "block" : "hidden"
+                }`}
+              >
+                <li className="text-[18px] font-medium leading-6">
+                  <Link
+                    to="/"
+                    onClick={handleClick}
+                    className={location.pathname === "/" ? "underline" : ""}
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li className="text-[18px] font-medium leading-6">
+                  <Link
+                    to="/contact"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/contact" ? "underline" : ""
+                    }
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li className="text-[18px] font-medium leading-6">
+                  <Link
+                    to="/about"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/about" ? "underline" : ""
+                    }
+                  >
+                    About
+                  </Link>
+                </li>
+                <li className="text-[18px] font-medium leading-6">
+                  <Link
+                    to="/register"
+                    onClick={handleClick}
+                    className={
+                      location.pathname === "/register" ? "underline" : ""
+                    }
+                  >
+                    Sign Up
+                  </Link>
+                </li>
+              </ul>
+              <Link to="/">
+                <h1 className="text-[24px] font-bold">Exclusive</h1>
+              </Link>
+            </div>
+            <div className="flex w-9/12 justify-between max-[980px]:w-10/12 max-[780px]:justify-end">
+              <ul className="flex items-center justify-center gap-10 max-[980px]:gap-5 max-[780px]:hidden">
                 <li className="text-[16px] font-normal leading-6">
                   <Link
                     to="/"
@@ -95,7 +155,7 @@ const Navbar = () => {
                     <FiSearch />
                   </span>
                 </div>
-                <div className="flex items-center justify-center gap-4 max-[780px]:flex-col">
+                <div className="flex items-center justify-center gap-4">
                   <Link to="/wishlist">
                     <FaRegHeart size="20px" />
                   </Link>

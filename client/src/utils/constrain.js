@@ -60,7 +60,7 @@ export const category = [
   },
   {
     id: 3,
-    title: "tablet",
+    title: "Tablet",
     // image: <BsSmartwatch />,
   },
   {
@@ -75,7 +75,7 @@ export const category = [
   },
   {
     id: 6,
-    title: "Watch",
+    title: "Accessory",
     // image: <TbDeviceGamepad />,
   },
 ];

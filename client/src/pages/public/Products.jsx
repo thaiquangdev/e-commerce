@@ -43,8 +43,11 @@ const Products = () => {
   };
 
   useEffect(() => {
-    if (category) {
+    if (category !== "products") {
       fetchBannerProductByCategory(category);
+      const searchObject = Object.fromEntries([...searchParams]);
+      fetchProductByCategory(searchObject);
+    } else {
       const searchObject = Object.fromEntries([...searchParams]);
       fetchProductByCategory(searchObject);
     }

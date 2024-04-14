@@ -6,10 +6,31 @@ import icons from "../../utils/icons";
 import { category } from "../../utils/constrain";
 import Product from "../../components/Product";
 import jbl_boombox from "../../assets/images/jbl_boombox.png";
+import { apiGetProducts } from "../../api/productApi";
+import { useEffect, useState } from "react";
 
 const { FiArrowRight } = icons;
 
 const Home = () => {
+  const [productBestSeller, setProductBestSeller] = useState(null);
+  const [productExplore, setProductExplore] = useState(null);
+  const [productNewArrival, setProductNewArrival] = useState(null);
+
+  const fetchProducts = async () => {
+    const response = await Promise.all([
+      apiGetProducts({ sort: "-sold", pageSize: 4 }),
+      apiGetProducts({ sort: "-price", pageSize: 8 }),
+      apiGetProducts({ sort: "-createAt", pageSize: 4 }),
+    ]);
+    if (response[0]?.products) setProductBestSeller(response[0]?.products);
+    if (response[1]?.products) setProductExplore(response[1]?.products);
+    if (response[2]?.products) setProductNewArrival(response[2]?.products);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <div>
       <div className="max-w-1170 mx-auto">
@@ -64,7 +85,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="mt-[50px]">
+        <div className="mt-[50px] max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
           <div className="flex flex-col  border-b border-line">
             <div className="py-2">
               <span className="bg-red py-1 px-2 rounded-sm"></span>
@@ -77,12 +98,12 @@ const Home = () => {
             </h3>
 
             <div className="mt-4 mb-6">
-              <ul className="flex mx-[-8px]">
+              <ul className="grid grid-cols-6 gap-2 max-[780px]:grid-cols-3">
                 {category.map((item) => {
                   return (
                     <li
                       key={item.id}
-                      className="mx-2 py-[16px] border border-line w-full text-center cursor-pointer"
+                      className=" py-[16px] border border-line w-full text-center cursor-pointer"
                     >
                       {/* {item.image} */}
                       <span>
@@ -108,19 +129,14 @@ const Home = () => {
             </h3>
 
             <div className="mt-4 mb-6">
-              <div className="row row-sm">
-                <div className="col-sm col-3">
-                  <Product />
-                </div>
-                <div className="col-sm col-3">
-                  <Product />
-                </div>
-                <div className="col-sm col-3">
-                  <Product />
-                </div>
-                <div className="col-sm col-3">
-                  <Product />
-                </div>
+              <div className="grid grid-cols-4 gap-2 max-[780px]:grid-cols-2 max-[450px]:grid-cols-1">
+                {productBestSeller?.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <Product data={item} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="mt-4 mb-6">
@@ -189,31 +205,14 @@ const Home = () => {
               <h3 className="text-[30px] leading-[48px] font-semibold">
                 Explore Our Products
               </h3>
-              <div className="row row-sm mt-2">
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
-                <div className="col-sm col-3 mt-[12px]">
-                  <Product />
-                </div>
+              <div className="grid grid-cols-4 gap-2 mt-[20px] max-[780px]:grid-cols-2 max-[450px]:grid-cols-1">
+                {productExplore?.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <Product data={item} />
+                    </div>
+                  );
+                })}
               </div>
               <div className="mt-4 flex items-center justify-center">
                 <Link className="px-6 py-3 rounded-sm bg-red text-white text-[16px] font-medium leading-[24px]">
@@ -231,6 +230,15 @@ const Home = () => {
               <h3 className="text-[30px] leading-[48px] font-semibold">
                 New Arrival
               </h3>
+              <div className="grid grid-cols-4 gap-2 mt-[20px] max-[780px]:grid-cols-2 max-[450px]:grid-cols-1">
+                {productNewArrival?.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <Product data={item} />
+                    </div>
+                  );
+                })}
+              </div>
               <div className="row row-sm">
                 <div className="col-6 col-sm"></div>
                 <div className="col-6 col-sm"></div>

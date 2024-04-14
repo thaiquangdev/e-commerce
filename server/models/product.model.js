@@ -22,6 +22,7 @@ const ProductSchema = mongoose.Schema(
       discount: { type: Number, default: 0, require: true },
     },
     stock: { type: Number, require: true, default: 0 },
+    sold: { type: Number, default: 0 },
     internal: [{ type: String, require: false }],
     ram: [{ type: String, require: false }],
     ratings: [

@@ -19,6 +19,7 @@ router.put(
 );
 router.get("/logout", protect, userController.logout);
 router.get("/cart", protect, userController.getUserCart);
+router.get("/wishlist", protect, userController.getWishlist);
 router.put("/change-password", protect, userController.changePassword);
 
 router.delete("/", protect, userController.deleteUser);

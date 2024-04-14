@@ -1,18 +1,43 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import icons from "../utils/icons";
 import { formattedPrice } from "../utils/helper";
+import { useDispatch } from "react-redux";
+import { fetchAddToWishlist } from "../redux/wishlist.jsx/wishlistSlice";
 
-const { FaStar } = icons;
+const { FaStar, FaRegEye, FaRegHeart, IoCartOutline } = icons;
 
 const Product = ({ data }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToWishlist = (pid) => {
+    dispatch(fetchAddToWishlist(pid));
+  };
+
   return (
     <div className="p-3 border-solid border-[1px] border-[#ccc] rounded-md">
-      <NavLink to={`/${data?.category}/${data?._id}`}>
+      <NavLink
+        to={`/${data?.category}/${data?._id}`}
+        className="relative overflow-hidden group"
+      >
         <img
           src={data?.thumbs}
           alt=""
-          className="w-full h-full object-contain"
+          className="w-full h-[260.5px] object-contain "
         />
+        <div className=" group-hover:flex group-hover:right-0 flex-col gap-2 absolute top-0 right-[-50px]  hidden">
+          <Link
+            onClick={() => handleAddToWishlist(data?._id)}
+            className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white"
+          >
+            <FaRegHeart size={16} />
+          </Link>
+          <Link className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white">
+            <FaRegEye size={16} />
+          </Link>
+          <Link className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white">
+            <IoCartOutline size={16} />
+          </Link>
+        </div>
         <div className="my-2">
           <h3 className="text-[16px] font-medium leading-6 overflow-hidden whitespace-nowrap overflow-ellipsis">
             {data?.title}
@@ -31,7 +56,7 @@ const Product = ({ data }) => {
             <FaStar className="text-yellow-star" />
           </span>
           <span className="text-[12px] font-semibold leading-[21px]">
-            (100)
+            ({data?.sold})
           </span>
         </div>
       </NavLink>

@@ -11,10 +11,10 @@ const { VscSend, RiFacebookLine, FaInstagram, FiTwitter, RiLinkedinLine } =
 const Footer = () => {
   return (
     <div className="bg-black">
-      <div className="max-w-1170 mx-auto py-[80px]">
-        <div className="row">
-          <div className="col-3">
-            <div>
+      <div className="max-w-1170 mx-auto py-[80px] max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
+        <div className="grid grid-cols-5 gap-2 max-lg:grid-cols-4 max-[780px]:grid-cols-3 max-[675px]:grid-cols-2 max-[450px]:grid-cols-1">
+          <div className="">
+            <div className="max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
               <h1 className="text-[24px] font-bold text-white leading-[24px]">
                 Exclusive
               </h1>
@@ -25,7 +25,7 @@ const Footer = () => {
                 Get 10% off your first order
               </p>
             </div>
-            <div className="mt-3 flex items-center">
+            <div className="mt-3 flex items-center max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
               <Input
                 type="text"
                 place="Enter your email"
@@ -36,7 +36,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className="col-2">
+          <div className="max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Support
             </h1>
@@ -60,11 +60,11 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-2">
+          <div className="max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Account
             </h1>
-            <div>
+            <div className="">
               <ul>
                 <li className="pt-3">
                   <Link className="text-[16px] text-white leading-[24px]">
@@ -94,7 +94,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-2">
+          <div className="max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
             <h1 className="text-[20px] text-white font-medium leading-[28px]">
               Quick Link
             </h1>
@@ -123,7 +123,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-3">
+          <div className="max-[450px]:flex max-[450px]:flex-col max-[450px]:justify-center max-[450px]:items-center">
             <div>
               <h1 className="text-[20px] text-white font-medium leading-[28px]">
                 Quick Link

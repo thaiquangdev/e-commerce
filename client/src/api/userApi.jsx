@@ -83,6 +83,27 @@ const apiUpdateQuantityCart = (cid, newquantity) =>
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
     },
   });
+
+// add to wishlist API
+const apiAddToWishList = (pid) =>
+  axios({
+    url: `http://localhost:5500/api/users/${pid}`,
+    method: "put",
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
+
+// add to wishlist API
+const apiGetToWishList = () =>
+  axios({
+    url: `http://localhost:5500/api/users/wishlist`,
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
+
 // logout user API
 const apiLogout = (user) =>
   axios({
@@ -101,4 +122,6 @@ export {
   apiGetCart,
   apiDeleteCart,
   apiUpdateQuantityCart,
+  apiAddToWishList,
+  apiGetToWishList,
 };

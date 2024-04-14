@@ -23,7 +23,11 @@ const Breadcrumb = () => {
 
   return (
     <div className="flex gap-1 items-center">
-      {crumbs.length > 0 && <Link className="text-[14px]">Home /</Link>}
+      {crumbs.length > 0 && (
+        <Link className="text-[14px]" to="/">
+          Home /
+        </Link>
+      )}
       {crumbs}
     </div>
   );

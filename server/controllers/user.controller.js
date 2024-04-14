@@ -260,19 +260,19 @@ const refreshAccessToken = expressAsyncHandler(async (req, res) => {
 
 const addToWishlist = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { pid } = req.body;
+  const { pid } = req.params;
   try {
     const user = await userModel.findById(_id);
     const already = user.wishlist.find((id) => id.toString() === pid);
     if (already) {
       let user = await userModel
         .findByIdAndUpdate(_id, { $pull: { wishlist: pid } }, { new: true })
-        .select("-password -role -refreshToken");
+        .select("wishlist");
       res.status(201).json(user);
     } else {
       let user = await userModel
         .findByIdAndUpdate(_id, { $push: { wishlist: pid } }, { new: true })
-        .select("-password -role -refreshToken");
+        .select("wishlist");
       res.status(201).json(user);
     }
   } catch (error) {
@@ -287,7 +287,10 @@ const addToWishlist = expressAsyncHandler(async (req, res) => {
 const getWishlist = expressAsyncHandler(async (req, res) => {
   try {
     const { _id } = req.user;
-    const findUser = await userModel.findById(_id).populate("wishlist");
+    const findUser = await userModel
+      .findById(_id)
+      .select("wishlist")
+      .populate("wishlist");
     res.status(201).json(findUser);
   } catch (error) {
     res.status(401).json({ message: error.message });

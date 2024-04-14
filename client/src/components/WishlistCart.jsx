@@ -3,22 +3,24 @@ import icons from "../utils/icons";
 import { formattedPrice } from "../utils/helper";
 const { FaStar } = icons;
 
-const WishlistCart = () => {
+const WishlistCart = ({ data }) => {
   return (
     <div className="p-3 border-solid border-[1px] border-[#ccc] rounded-md">
       <NavLink to={``}>
         <img
-          src="https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg"
+          src={data?.thumbs}
           alt=""
-          className="w-full h-full object-contain"
+          className="w-full h-[260.5px] object-contain"
         />
         <div className="my-2">
           <h3 className="text-[16px] font-medium leading-6 overflow-hidden whitespace-nowrap overflow-ellipsis">
-            iphone 15 Pro Max
+            {data?.title}
           </h3>
           <p className="text-[14px] text-red font-medium leading-6">
-            29.990.000₫
-            <span className="text-black line-through">34.990.000₫</span>
+            {formattedPrice(data?.price)}
+            <span className="text-black line-through">
+              {formattedPrice(data?.priceOld)}
+            </span>
           </p>
         </div>
         <div className="mt-2 flex items-center gap-2">
@@ -30,7 +32,7 @@ const WishlistCart = () => {
             <FaStar className="text-yellow-star" />
           </span>
           <span className="text-[12px] font-semibold leading-[21px]">
-            (100)
+            ({data?.sold})
           </span>
         </div>
       </NavLink>
