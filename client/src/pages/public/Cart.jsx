@@ -166,7 +166,7 @@ const Cart = () => {
             </div>
             <div className="py-2 text-center">
               <Link
-                to=""
+                to="/cart/checkout"
                 className=" bg-red py-2 px-3 text-white text-[16px] leading-[24px] rounded-sm"
               >
                 Process to checkout

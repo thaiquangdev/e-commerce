@@ -56,6 +56,7 @@ export const fetchUpdateQuantityCart = createAsyncThunk(
 );
 
 const initialState = {
+  cartProduct: [],
   isLoading: false,
   isSuccess: false,
   isError: false,

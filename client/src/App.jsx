@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Wishlist from "./pages/public/Wishlist";
 import PageNotFound from "./pages/public/PageNotFound";
+import CheckOut from "./pages/public/CheckOut";
 
 // protedroute order, dashboard, profile, password
 
@@ -41,6 +42,7 @@ function App() {
               </Route>
               <Route path={path.cart} element={<Cart />} />
               <Route path={path.wishlist} element={<Wishlist />} />
+              <Route path={path.checkout} element={<CheckOut />} />
             </Route>
             <Route path={path.not_found} element={<PageNotFound />} />
             {/* <Redirect to={path.not_found} /> */}

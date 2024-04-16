@@ -10,7 +10,7 @@ const { VscSend, RiFacebookLine, FaInstagram, FiTwitter, RiLinkedinLine } =
 
 const Footer = () => {
   return (
-    <div className="bg-black">
+    <div className="bg-black mt-[30px]">
       <div className="max-w-1170 mx-auto py-[80px] max-lg:max-w-970 max-[980px]:max-w-840 max-[860px]:max-w-[765px] max-[780px]:max-w-640">
         <div className="grid grid-cols-5 gap-2 max-lg:grid-cols-4 max-[780px]:grid-cols-3 max-[675px]:grid-cols-2 max-[450px]:grid-cols-1">
           <div className="">

@@ -22,30 +22,68 @@ const OrderSchema = mongoose.Schema(
         },
       },
     ],
-    shippingAddress: {
+    shippingInfo: {
       fullname: { type: String },
       address: { type: String, require: true },
-      email: { type: String, require: true, lowercase: true },
-      location: { type: String },
-      phoneNumber: { type: String },
       city: { type: String, require: true },
-      postalCode: { type: String, require: true },
-      shippingMethod: { type: String },
-      shippingCost: { type: Number },
+      email: { type: String, require: true, lowercase: true },
+      phoneNumber: { type: String },
+      postalCode: { type: Number, require: true },
+      state: { type: String, require: true },
+      other: { type: String, require: true },
     },
     payments: {
-      paymentMethod: { type: String },
-      status: { type: String, default: "pending", require: true },
-      paymentDate: { type: Date },
+      razorpayOrderId: {
+        type: String,
+        require: true,
+      },
+      razorpayPaymentId: {
+        type: String,
+        require: true,
+      },
     },
-    delivery: {
-      status: { type: String, default: "awaiting", require: true },
-      deliveryDate: { type: Date },
-      deliveryMethod: { type: String },
+    orderItems: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Products",
+          require: true,
+        },
+        color: {
+          type: String,
+        },
+        ram: {
+          type: String,
+        },
+        storage: {
+          type: String,
+        },
+        quantity: {
+          type: Number,
+          require: true,
+        },
+        price: {
+          type: Number,
+          require: true,
+        },
+      },
+    ],
+    paidAt: {
+      type: Date,
+      default: Date.now(),
     },
-    totalPrice: { type: Number, require: true },
-    subTotalPrice: { type: Number, require: true },
-    taxPrice: { type: Number, require: true, default: 0 },
+    totalprice: {
+      type: Number,
+      require: true,
+    },
+    totalpriceAfterDiscount: {
+      type: Number,
+      require: true,
+    },
+    orderStatus: {
+      type: String,
+      require: "Ordered",
+    },
   },
   { timestamps: true }
 );

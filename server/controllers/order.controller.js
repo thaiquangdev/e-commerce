@@ -8,16 +8,19 @@ import productModel from "../models/product.model.js";
 
 const createOrder = expressAsyncHandler(async (req, res) => {
   try {
-    const { orderItem, subTotalPrice, totalPrice } = req.body;
+    const { shippingInfo, orderItems, totalPrice, totalPriceAfterDiscount } =
+      req.body;
+    const { _id } = req.user;
 
     const order = new orderModel({
-      orderItem,
-      subTotalPrice,
+      shippingInfo,
+      orderItems,
       totalPrice,
-      user: req.user._id,
+      totalPriceAfterDiscount,
+      user: _id,
     });
     //reduce stock of ordered products
-    orderItem.foreach(async (item) => {
+    orderItems.foreach(async (item) => {
       const product = await productModel.findById(item.product);
       product.stock = product.stock - item.qty;
       await product.save();

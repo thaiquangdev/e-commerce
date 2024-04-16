@@ -29,6 +29,12 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState(null);
   const [storage, setStorage] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(
+    product?.product?.colors[0] || null
+  );
+  const [selectedStorage, setSelectedStorage] = useState(
+    product?.product?.internal[0] || null
+  );
 
   const fetchProductData = async () => {
     try {
@@ -60,11 +66,13 @@ const ProductDetail = () => {
   // Hàm xử lý sự kiện khi chọn màu sắc
   const handleColorSelection = (color) => {
     setColor(color);
+    setSelectedColor(color);
   };
 
   // Hàm xử lý sự kiện khi chọn màu sắc
   const handleStorageSelection = (storage) => {
     setStorage(storage);
+    setSelectedStorage(storage);
   };
 
   // hàm thêm giỏ hàng
@@ -179,7 +187,12 @@ const ProductDetail = () => {
                 <ul className="flex items-center gap-1">
                   {product?.product?.colors.map((item, index) => {
                     return (
-                      <li key={index} className="border p-2 rounded-md">
+                      <li
+                        key={index}
+                        className={`border p-2 rounded-md ${
+                          selectedColor === item ? "border-red text-red" : ""
+                        }`}
+                      >
                         <button
                           className="text-[12px]"
                           onClick={() => handleColorSelection(item)}
@@ -199,7 +212,9 @@ const ProductDetail = () => {
                     return (
                       <li
                         key={index}
-                        className="border w-[70px] text-center p-2 rounded-md"
+                        className={`border w-[70px] text-center p-2 rounded-md ${
+                          selectedStorage === item ? "border-red text-red" : ""
+                        }`}
                       >
                         <button
                           onClick={() => handleStorageSelection(item)}

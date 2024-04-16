@@ -6,6 +6,7 @@ const path = {
   products: ":category",
   cart: "cart",
   wishlist: "wishlist",
+  checkout: "cart/checkout",
   detail_product_category_pid: ":category/:pid",
   dashboardLayout: "/dashboard",
   dashboard: "",

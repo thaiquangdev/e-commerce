@@ -67,12 +67,18 @@ const createProduct = expressAsyncHandler(async (req, res) => {
 
 const getProduct = expressAsyncHandler(async (req, res) => {
   try {
-    const { category, search, internal, sort } = req.query;
+    const { category, search, internal, sort, ram, brand } = req.query;
     const pageSize = Number(req.query.pageSize) || 15;
     const page = Number(req.query.page) || 1;
 
     // filter by tag
     const internalFilter = internal ? { internal: { $in: internal } } : {};
+
+    // filter by tag
+    const ramFilter = ram ? { ram: { $in: ram } } : {};
+
+    // filter by brand
+    const brandFilter = brand ? { brand } : {};
 
     // search by title
     const title = search ? { title: { $regex: search, $options: "i" } } : {};
@@ -85,9 +91,9 @@ const getProduct = expressAsyncHandler(async (req, res) => {
       ...title,
       ...categoryFilter,
       ...internalFilter,
+      ...ramFilter,
+      ...brandFilter,
     });
-
-    const totalPages = Math.ceil(count / pageSize);
 
     // get products
 
@@ -96,6 +102,8 @@ const getProduct = expressAsyncHandler(async (req, res) => {
         ...title,
         ...categoryFilter,
         ...internalFilter,
+        ...ramFilter,
+        ...brandFilter,
       })
       .sort(sort)
       .limit(pageSize)

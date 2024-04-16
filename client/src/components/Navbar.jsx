@@ -3,6 +3,7 @@ import Input from "./Input";
 import icons from "../utils/icons.js";
 import { useState } from "react";
 import Breadcrumb from "./Breadcrumb.jsx";
+import { useSelector } from "react-redux";
 
 const { FiSearch, FaRegHeart, IoCartOutline, LuUser2, MdOutlineMenu } = icons;
 
@@ -10,6 +11,8 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const wishlist = useSelector((state) => state.wishlist.wishlist.wishlist);
+  const cart = useSelector((state) => state.cart.cartProducts);
 
   const handleClick = () => {
     setIsActive(true);
@@ -155,12 +158,22 @@ const Navbar = () => {
                     <FiSearch />
                   </span>
                 </div>
-                <div className="flex items-center justify-center gap-4">
-                  <Link to="/wishlist">
-                    <FaRegHeart size="20px" />
+                <div className="flex items-center justify-center gap-5">
+                  <Link to="/wishlist" className="relative">
+                    <FaRegHeart size={25} />
+                    {wishlist && (
+                      <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]">
+                        {wishlist.length}
+                      </span>
+                    )}
                   </Link>
-                  <Link to="/cart">
-                    <IoCartOutline size="20px" />
+                  <Link to="/cart" className="relative">
+                    <IoCartOutline size={25} />
+                    {cart && (
+                      <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]">
+                        {cart.length}
+                      </span>
+                    )}
                   </Link>
                   <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">
                     <Link to="/dashboard">
