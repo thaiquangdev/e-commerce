@@ -7,21 +7,7 @@ const OrderSchema = mongoose.Schema(
       ref: "Users",
       require: true,
     },
-    orderItems: [
-      {
-        size: { type: String, require: true },
-        color: { type: String, require: true },
-        name: { type: String, require: true },
-        quantity: { type: String, require: true },
-        image: { type: String, require: true },
-        price: { type: Number, require: true },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Products",
-          require: true,
-        },
-      },
-    ],
+
     shippingInfo: {
       fullname: { type: String },
       address: { type: String, require: true },
@@ -29,22 +15,29 @@ const OrderSchema = mongoose.Schema(
       email: { type: String, require: true, lowercase: true },
       phoneNumber: { type: String },
       postalCode: { type: Number, require: true },
-      state: { type: String, require: true },
       other: { type: String, require: true },
     },
     payments: {
-      razorpayOrderId: {
+      paypalOrderId: {
         type: String,
-        require: true,
+        required: true,
       },
-      razorpayPaymentId: {
+      paypalPaymentId: {
         type: String,
-        require: true,
+        required: true,
+      },
+      paymentToken: {
+        type: String,
+        required: true,
+      },
+      paymentPayerId: {
+        type: String,
+        required: true,
       },
     },
     orderItems: [
       {
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Products",
           require: true,
@@ -62,10 +55,6 @@ const OrderSchema = mongoose.Schema(
           type: Number,
           require: true,
         },
-        price: {
-          type: Number,
-          require: true,
-        },
       },
     ],
     paidAt: {
@@ -76,10 +65,7 @@ const OrderSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
-    totalpriceAfterDiscount: {
-      type: Number,
-      require: true,
-    },
+
     orderStatus: {
       type: String,
       require: "Ordered",

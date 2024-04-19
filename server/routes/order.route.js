@@ -6,4 +6,4 @@ const router = Router();
 
 router.post("/cart/create-order", protect, orderController.createOrder);
 
-export { router };
+export default router;

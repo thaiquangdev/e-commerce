@@ -35,12 +35,7 @@ const Products = () => {
   const [bannerProductsData, setBannerProductsData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [valuePrice, setValuePrice] = useState([300000, 44000000]);
-  const [filters, setFilters] = useState({
-    brand: "",
-    // typephone: "",
-    ram: "",
-    storage: "",
-  });
+  const [filters, setFilters] = useState({});
   const [searchParams] = useSearchParams();
 
   console.log(searchParams);

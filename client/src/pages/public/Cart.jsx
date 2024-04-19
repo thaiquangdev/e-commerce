@@ -16,6 +16,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const [newQuantity, setNewQuantity] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(null);
+
   useEffect(() => {
     dispatch(fetchGetCart());
   }, []);
@@ -33,6 +35,17 @@ const Cart = () => {
       dispatch(fetchGetCart());
     }, 2000);
   };
+
+  useEffect(() => {
+    let sum = 0;
+    for (let i = 0; i < cartProducts.length; i++) {
+      sum =
+        sum +
+        Number(cartProducts[i].quantity) *
+          Number(cartProducts[i].productId.price);
+      setTotalAmount(sum);
+    }
+  }, [cartProducts]);
 
   return (
     <div className="mt-[30px]">
@@ -154,7 +167,9 @@ const Cart = () => {
             </h3>
             <div className="flex items-center justify-between border-b border-b-black py-2">
               <span className="text-[16px] leading-[24px]">Subtotal: </span>
-              <span className="text-[16px] leading-[24px]">29.990.000₫</span>
+              <span className="text-[16px] leading-[24px]">
+                {formattedPrice(totalAmount)}
+              </span>
             </div>
             <div className="flex items-center justify-between border-b border-b-black py-2">
               <span className="text-[16px] leading-[24px]">Shipping: </span>
@@ -162,7 +177,9 @@ const Cart = () => {
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="text-[16px] leading-[24px]">Total: </span>
-              <span className="text-[16px] leading-[24px]">29.990.000₫</span>
+              <span className="text-[16px] leading-[24px]">
+                {formattedPrice(totalAmount)}
+              </span>
             </div>
             <div className="py-2 text-center">
               <Link

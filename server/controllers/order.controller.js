@@ -8,15 +8,14 @@ import productModel from "../models/product.model.js";
 
 const createOrder = expressAsyncHandler(async (req, res) => {
   try {
-    const { shippingInfo, orderItems, totalPrice, totalPriceAfterDiscount } =
-      req.body;
+    const { shippingInfo, orderItems, totalPrice, payments } = req.body;
     const { _id } = req.user;
 
     const order = new orderModel({
       shippingInfo,
       orderItems,
       totalPrice,
-      totalPriceAfterDiscount,
+      payments,
       user: _id,
     });
     //reduce stock of ordered products
