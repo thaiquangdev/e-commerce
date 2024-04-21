@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
 
   // formik
   const formik = useFormik({
@@ -28,7 +28,8 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (user?.user?.data !== null && user?.isSuccess === true) {
+    if (user?.success === true) {
+      localStorage.setItem("token", user?.token);
       navigate("/");
     }
   }, [user]);

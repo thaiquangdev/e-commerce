@@ -4,6 +4,6 @@ import { protect } from "../middlewares/Auth.middleware.js";
 
 const router = Router();
 
-router.post("/cart/create-order", protect, orderController.createOrder);
+router.post("/", protect, orderController.createOrder);
 
 export default router;

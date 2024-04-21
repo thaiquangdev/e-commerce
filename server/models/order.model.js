@@ -15,26 +15,9 @@ const OrderSchema = mongoose.Schema(
       email: { type: String, require: true, lowercase: true },
       phoneNumber: { type: String },
       postalCode: { type: Number, require: true },
-      other: { type: String, require: true },
+      other: { type: String },
     },
-    payments: {
-      paypalOrderId: {
-        type: String,
-        required: true,
-      },
-      paypalPaymentId: {
-        type: String,
-        required: true,
-      },
-      paymentToken: {
-        type: String,
-        required: true,
-      },
-      paymentPayerId: {
-        type: String,
-        required: true,
-      },
-    },
+
     orderItems: [
       {
         productId: {
@@ -68,7 +51,7 @@ const OrderSchema = mongoose.Schema(
 
     orderStatus: {
       type: String,
-      require: "Ordered",
+      default: "Ordered",
     },
   },
   { timestamps: true }

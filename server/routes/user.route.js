@@ -23,6 +23,7 @@ router.get("/wishlist", protect, userController.getWishlist);
 router.put("/change-password", protect, userController.changePassword);
 
 router.delete("/", protect, userController.deleteUser);
-router.delete("/delete-cart/:cid", protect, userController.deleteUserCart);
+router.delete("/delete-cart/", protect, userController.deleteUserCart);
+router.delete("/delete-all-cart/", protect, userController.deleteUserAllCart);
 
 export default router;

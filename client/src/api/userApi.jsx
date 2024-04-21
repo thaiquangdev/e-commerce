@@ -18,26 +18,12 @@ const apiLogin = (data) =>
   });
 
 const getTokenFromLocalStorage = () => {
-  // Lấy dữ liệu đã lưu trong Local Storage với key là "persist:root"
-  const persistState = JSON.parse(localStorage.getItem("persist:root"));
-  console.log(persistState);
+  const token = localStorage.getItem("token");
 
-  // Kiểm tra xem dữ liệu có tồn tại không
-  if (persistState) {
-    // Lấy trạng thái của user từ persistedState
-    const userState = JSON.parse(persistState.user);
-    console.log(userState);
-
-    // Lấy token từ trạng thái của user
-    if (userState && userState.user && userState.user.data) {
-      const token = userState.user.data.token;
-      return token;
-    } else {
-      console.error("Không tìm thấy dữ liệu người dùng trong Local Storage.");
-      return null;
-    }
+  if (token) {
+    return token;
   } else {
-    console.error("Không tìm thấy dữ liệu trong Local Storage.");
+    console.error("Không tìm thấy dữ liệu người dùng trong Local Storage.");
     return null;
   }
 };
@@ -64,9 +50,19 @@ const apiGetCart = () =>
   });
 
 // delete cart API
-const apiDeleteCart = (cid) =>
+const apiDeleteCart = () =>
   axios({
-    url: `http://localhost:5500/api/users/delete-cart/${cid}`,
+    url: `http://localhost:5500/api/users/delete-cart/`,
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  });
+
+// delete all cart API
+const apiDeleteAllCart = () =>
+  axios({
+    url: `http://localhost:5500/api/users/delete-all-cart/`,
     method: "delete",
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
@@ -121,6 +117,7 @@ export {
   apiUpdateCart,
   apiGetCart,
   apiDeleteCart,
+  apiDeleteAllCart,
   apiUpdateQuantityCart,
   apiAddToWishList,
   apiGetToWishList,

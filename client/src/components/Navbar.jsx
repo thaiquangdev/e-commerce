@@ -11,8 +11,9 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const wishlist = useSelector((state) => state.wishlist.wishlist.wishlist);
-  const cart = useSelector((state) => state.cart.cartProducts);
+  const wishlist = useSelector((state) => state?.wishlist?.wishlist?.wishlist);
+  const totalItems = useSelector((state) => state?.cart?.totalItems);
+  console.log(totalItems);
 
   const handleClick = () => {
     setIsActive(true);
@@ -169,9 +170,9 @@ const Navbar = () => {
                   </Link>
                   <Link to="/cart" className="relative">
                     <IoCartOutline size={25} />
-                    {cart && (
+                    {totalItems && (
                       <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]">
-                        {cart.length}
+                        {totalItems}
                       </span>
                     )}
                   </Link>

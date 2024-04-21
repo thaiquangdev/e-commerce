@@ -56,7 +56,6 @@ export const fetchUpdateQuantityCart = createAsyncThunk(
 );
 
 const initialState = {
-  cartProduct: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -76,6 +75,8 @@ const cartSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.cartProduct = action.payload;
+        console.log(action);
+        state.totalItems = Object.keys(action.payload).length;
         if (state.isSuccess) {
           toast.success("Product add to card");
         }

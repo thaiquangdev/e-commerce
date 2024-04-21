@@ -14,7 +14,7 @@ const { TiDelete } = icons;
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const cartProducts = useSelector((state) => state?.cart?.cartProducts);
   const [newQuantity, setNewQuantity] = useState(0);
   const [totalAmount, setTotalAmount] = useState(null);
 
@@ -22,8 +22,8 @@ const Cart = () => {
     dispatch(fetchGetCart());
   }, []);
 
-  const handleDeleteCart = (cid) => {
-    dispatch(fetchDeleteCart(cid));
+  const handleDeleteCart = () => {
+    dispatch(fetchDeleteCart());
     setTimeout(() => {
       dispatch(fetchGetCart());
     }, 2000);
@@ -38,7 +38,7 @@ const Cart = () => {
 
   useEffect(() => {
     let sum = 0;
-    for (let i = 0; i < cartProducts.length; i++) {
+    for (let i = 0; i < cartProducts?.length; i++) {
       sum =
         sum +
         Number(cartProducts[i].quantity) *
@@ -121,7 +121,7 @@ const Cart = () => {
                   <td>
                     <button
                       className="text-black"
-                      onClick={() => handleDeleteCart(item?._id)}
+                      onClick={() => handleDeleteCart()}
                     >
                       <TiDelete size={20} />
                     </button>

@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 export const fetchUserLogin = createAsyncThunk(
   "auth/loginUser",
-  async (data, user, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const response = await apiLogin(data, user);
+      const response = await apiLogin(data);
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -59,18 +59,12 @@ const userSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.user = action.payload;
-        if (state.isSuccess === true) {
-          toast.success("User login is successfully");
-        }
       })
       .addCase(fetchUserLogin.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
         state.message = action.error;
-        if (state.isError === true) {
-          toast.error("wrong email or password");
-        }
       })
       .addCase(fetchUserRegister.pending, (state) => {
         state.isLoading = true;
@@ -86,9 +80,6 @@ const userSlice = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.error;
-        if (state.isError === true) {
-          toast.error("something wrent wrong");
-        }
       })
       .addCase(fetchUserLogout.pending, (state) => {
         state.isLoading = true;

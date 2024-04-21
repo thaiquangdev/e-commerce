@@ -50,8 +50,8 @@ const login = expressAsyncHandler(async (req, res) => {
           email: user.email,
           phone: user.phone,
           image: user.image,
-          isAdmin: user.isAdmin,
-          token: accessToken, // generate token for authentication in the fontend
+          token: accessToken,
+          success: user ? true : false,
         });
       } else {
         res.status(401).json({ message: "Invalid passowrd" });
@@ -338,9 +338,18 @@ const getUserCart = expressAsyncHandler(async (req, res) => {
 const deleteUserCart = expressAsyncHandler(async (req, res) => {
   try {
     const { _id } = req.user;
-    const { cid } = req.params;
-    const cart = await cartModel.deleteOne({ userId: _id, _id: cid });
+    const cart = await cartModel.deleteOne({ userId: _id });
     res.status(201).json(cart);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
+const deleteUserAllCart = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const cart = await cartModel.deleteMany({ userId: _id });
+    res.status(201).json({ cart, success: cart ? true : false });
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
@@ -380,5 +389,6 @@ export {
   updateCart,
   getUserCart,
   deleteUserCart,
+  deleteUserAllCart,
   updateUserQuantityCart,
 };

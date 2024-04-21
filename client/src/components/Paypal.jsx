@@ -4,12 +4,14 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
+import { apiCreateOrder } from "../api/orderApi";
+import { toast } from "react-toastify";
+import { apiDeleteAllCart, apiDeleteCart } from "../api/userApi";
 
 const style = { layout: "vertical" };
 
 const ButtonWrapper = ({ currency, showSpinner, amount, payload }) => {
   const [{ isPending, options }, dispatch] = usePayPalScriptReducer();
-
   useEffect(() => {
     dispatch({
       type: "resetOptions",
@@ -19,6 +21,14 @@ const ButtonWrapper = ({ currency, showSpinner, amount, payload }) => {
       },
     });
   }, [currency, showSpinner]);
+
+  const handleSaveOrder = async () => {
+    const response = await apiCreateOrder(payload);
+    if (response.success) {
+      apiDeleteAllCart();
+      toast.success("checkout is successfully!");
+    }
+  };
 
   return (
     <>
@@ -41,8 +51,9 @@ const ButtonWrapper = ({ currency, showSpinner, amount, payload }) => {
           actions.order
             .capture()
             .then(async (response) => {
-              console.log(response);
-              console.log(payload);
+              if (response.status === "COMPLETED") {
+                handleSaveOrder();
+              }
             })
             .catch((error) => {
               console.error("Error during PayPal capture:", error);

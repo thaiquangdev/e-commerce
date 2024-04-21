@@ -1,9 +1,6 @@
 import Input from "../../components/Input";
-import bkash from "../../assets/images/bkash.png";
-import mastercard from "../../assets/images/mastercard.png";
-import nagad from "../../assets/images/nagad.png";
-import visa from "../../assets/images/visa.png";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { formattedPrice } from "../../utils/helper";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
@@ -11,21 +8,20 @@ import { shippingSchema } from "../../utils/validation";
 import Paypal from "../../components/Paypal";
 
 const CheckOut = () => {
-  const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const [totalAmount, setTotalAmount] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      fullname: "",
       address: "",
       state: "",
       city: "",
       phoneNumber: "",
       email: "",
       apartment: "",
-      postedCode: "",
+      postalCode: "",
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
@@ -54,17 +50,17 @@ const CheckOut = () => {
           <div className="flex">
             <div className="w-6/12 pr-[30px]">
               <div className="flex flex-col my-[20px]">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="fullname">Name</label>
                 <Input
                   type="text"
                   classN="py-2 px-2 rounded-sm bg-[#F5F5F5] w-[400px]"
                   onCh={formik.handleChange}
                   onBl={formik.handleBlur}
-                  val={formik.values.name}
-                  name="name"
+                  val={formik.values.fullname}
+                  name="fullname"
                 />
-                {formik.errors.name && (
-                  <small className="text-red">{formik.errors.name}</small>
+                {formik.errors.fullname && (
+                  <small className="text-red">{formik.errors.fullname}</small>
                 )}
               </div>
               <div className="flex flex-col my-[20px]">
@@ -140,18 +136,18 @@ const CheckOut = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="postedCode">Zipcode</label>
+                  <label htmlFor="postalCode">Zipcode</label>
                   <Input
                     type="text"
                     classN="py-2 px-2 rounded-sm bg-[#F5F5F5] w-[196px]"
                     onCh={formik.handleChange}
                     onBl={formik.handleBlur}
-                    val={formik.values.postedCode}
-                    name="postedCode"
+                    val={formik.values.postalCode}
+                    name="postalCode"
                   />
-                  {formik.errors.postedCode && (
+                  {formik.errors.postalCode && (
                     <small className="text-red">
-                      {formik.errors.postedCode}
+                      {formik.errors.postalCode}
                     </small>
                   )}
                 </div>
