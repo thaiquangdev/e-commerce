@@ -9,6 +9,8 @@ import {
 } from "../../redux/cart/cartSlice";
 import { formattedPrice } from "../../utils/helper";
 import icons from "../../utils/icons";
+import { apiAppyCoupon } from "../../api/couponApi";
+import { addtotalAmount } from "../../redux/cart/cartSlice";
 
 const { TiDelete } = icons;
 
@@ -17,6 +19,8 @@ const Cart = () => {
   const cartProducts = useSelector((state) => state?.cart?.cartProducts);
   const [newQuantity, setNewQuantity] = useState(0);
   const [totalAmount, setTotalAmount] = useState(null);
+  const [coupon, setCoupon] = useState(null);
+  const [discount, setDiscount] = useState(null);
 
   useEffect(() => {
     dispatch(fetchGetCart());
@@ -36,16 +40,30 @@ const Cart = () => {
     }, 2000);
   };
 
+  const handleApplyCoupon = async () => {
+    const response = await apiAppyCoupon(coupon);
+    if (response.success) {
+      setDiscount(response?.coupon?.discount);
+    }
+  };
+
   useEffect(() => {
     let sum = 0;
     for (let i = 0; i < cartProducts?.length; i++) {
       sum =
         sum +
-        Number(cartProducts[i].quantity) *
-          Number(cartProducts[i].productId.price);
-      setTotalAmount(sum);
+        Number(cartProducts[i]?.quantity) *
+          Number(cartProducts[i].productId?.price);
     }
-  }, [cartProducts]);
+    if (discount) {
+      let sumAfterDiscount = sum - sum * (discount / 100);
+      setTotalAmount(sumAfterDiscount);
+      dispatch(addtotalAmount(sumAfterDiscount));
+    } else {
+      setTotalAmount(sum);
+      dispatch(addtotalAmount(sum));
+    }
+  }, [cartProducts, discount]);
 
   return (
     <div className="mt-[30px]">
@@ -153,9 +171,12 @@ const Cart = () => {
               type="text"
               classN="py-2 px-3 border border-black rounded-md "
               place="Coupon Code"
+              onCh={(e) => setCoupon(e.target.value)}
+              val={coupon}
             />
             <button
               type="submit"
+              onClick={handleApplyCoupon}
               className="py-2 px-3 bg-red text-white text-[16px] leading-[24px] rounded-md"
             >
               Apply Coupon

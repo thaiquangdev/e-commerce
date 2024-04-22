@@ -65,6 +65,11 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
+  reducers: {
+    addtotalAmount: (state, action) => {
+      state.totalAmount = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUpdateCart.pending, (state) => {
@@ -75,8 +80,7 @@ const cartSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.cartProduct = action.payload;
-        console.log(action);
-        state.totalItems = Object.keys(action.payload).length;
+        state.totalItems = state.cartProduct.length;
         if (state.isSuccess) {
           toast.success("Product add to card");
         }
@@ -147,4 +151,5 @@ const cartSlice = createSlice({
   },
 });
 
+export const { addtotalAmount } = cartSlice.actions;
 export default cartSlice.reducer;

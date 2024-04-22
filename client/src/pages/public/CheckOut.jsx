@@ -1,15 +1,14 @@
 import Input from "../../components/Input";
-
 import { useSelector } from "react-redux";
 import { formattedPrice } from "../../utils/helper";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { shippingSchema } from "../../utils/validation";
 import Paypal from "../../components/Paypal";
 
 const CheckOut = () => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const [totalAmount, setTotalAmount] = useState(null);
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
   const [shippingInfo, setShippingInfo] = useState(null);
 
   const formik = useFormik({
@@ -28,17 +27,6 @@ const CheckOut = () => {
       setShippingInfo(values);
     },
   });
-
-  useEffect(() => {
-    let sum = 0;
-    for (let i = 0; i < cartProducts.length; i++) {
-      sum =
-        sum +
-        Number(cartProducts[i].quantity) *
-          Number(cartProducts[i].productId.price);
-      setTotalAmount(sum);
-    }
-  }, [cartProducts]);
 
   return (
     <div className="max-w-1170 mx-auto py-[30px]">

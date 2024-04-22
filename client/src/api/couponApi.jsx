@@ -11,15 +11,14 @@ const getTokenFromLocalStorage = () => {
   }
 };
 
-// create order API
-const apiCreateOrder = (name) =>
+const apiAppyCoupon = (name) =>
   axios({
-    url: "http://localhost:5500/api/order/",
+    url: "http://localhost:5500/api/coupon/apply-coupon",
     method: "post",
-    data: name,
+    data: { name },
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
     },
   });
 
-export { apiCreateOrder };
+export { apiAppyCoupon };
