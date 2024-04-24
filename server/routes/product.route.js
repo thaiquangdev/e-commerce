@@ -9,6 +9,7 @@ route.post("/import", protect, productController.importProducts);
 route.post("/", protect, productController.createProduct);
 route.get("/", productController.getProduct);
 route.get("/:id", productController.getProductById);
+route.put("/ratings", protect, productController.rating)
 route.put(
   "/:id",
   protect,

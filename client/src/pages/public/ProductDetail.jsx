@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { apiGetProduct } from "../../api/productApi";
+import { apiGetProduct, apiRatings } from "../../api/productApi";
 import { useParams, Link } from "react-router-dom";
 import icons from "../../utils/icons";
 import { formattedPrice } from "../../utils/helper";
@@ -10,6 +10,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch } from "react-redux";
 import { fetchUpdateCart } from "../../redux/cart/cartSlice";
+import Votebar from "../../components/Votebar";
+import ModalRating from "../../components/ModalRating";
+import { toast } from "react-toastify";
+import Ratings from "../../components/Ratings";
 
 const { FaStar, FaRegHeart } = icons;
 
@@ -35,6 +39,9 @@ const ProductDetail = () => {
   const [selectedStorage, setSelectedStorage] = useState(
     product?.product?.internal[0] || null
   );
+  const [isVote, setIsVote] = useState(false);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
 
   const fetchProductData = async () => {
     try {
@@ -88,6 +95,29 @@ const ProductDetail = () => {
     );
   };
 
+  const handleVote = () => {
+    setIsVote(true);
+  };
+
+  const handleCommentClick = (value) => {
+    setComment(value);
+  };
+
+  const handleStarClick = (value) => {
+    setRating(value);
+  };
+
+  const handleSubmitRating = async () => {
+    const response = await apiRatings({
+      prodId: product?.product?._id,
+      comment: comment,
+      star: rating,
+    });
+    if (response.success) {
+      toast.success("review product is successfull!");
+    }
+  };
+
   useEffect(() => {
     fetchProductData();
   }, [pid]);
@@ -99,8 +129,23 @@ const ProductDetail = () => {
   }, [product]);
 
   return (
-    <div>
-      <div className="max-w-1170 mx-auto">
+    <div className="relative">
+      {isVote && (
+        <div className="fixed inset-0 z-10 flex items-center justify-center ">
+          <div className="bg-red text-white rounded-md p-6 w-[500px] mx-auto my-auto">
+            <h2>Reiview is {product?.product?.title}</h2>
+            <ModalRating
+              onReviewChange={handleCommentClick}
+              onStarClick={handleStarClick}
+            />
+            <div className="flex items-center gap-2">
+              <button onClick={handleSubmitRating}>Rate</button>
+              <button onClick={() => setIsVote(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="max-w-1170 mx-auto ">
         <div className="row">
           <div className="col-7">
             <div className="mt-[30px]">
@@ -290,6 +335,58 @@ const ProductDetail = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        <div className="mt-[20px] my-[40px]">
+          <h2 className="py-[20px] text-[16px] leading-[24px] font-medium">
+            Reviews and comments {product?.product?.title}
+          </h2>
+          <div className="flex">
+            <div className="w-4/12">
+              <div className="flex flex-col gap-3 items-center justify-center">
+                <span className="text-[26px] leading-[24px] font-semibold">{`${4.9}/5`}</span>
+                <div className="flex items-center gap-1">
+                  <FaStar className="text-[12px] text-yellow-star" />
+                  <FaStar className="text-[12px] text-yellow-star" />
+                  <FaStar className="text-[12px] text-yellow-star" />
+                  <FaStar className="text-[12px] text-yellow-star" />
+                  <FaStar className="text-[12px] text-yellow-star" />
+                </div>
+                <span className="text-[16px] leading-[24px]">{`${19} reviews`}</span>
+              </div>
+            </div>
+            <div className="w-8/12">
+              <div className="flex flex-col">
+                {Array.from(Array(5).keys())
+                  .reverse()
+                  .map((item) => {
+                    return (
+                      <Votebar
+                        key={item}
+                        number={item + 1}
+                        ratingTotal={5}
+                        ratingCount={2}
+                      />
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center flex-col my-[20px] pb-[20px] border-b">
+            <h3 className="text-[16px] leading-[24px]">
+              How do you rate this product?
+            </h3>
+            <button
+              onClick={handleVote}
+              className="mt-[10px] py-2 px-5 rounded-md bg-red text-white"
+            >
+              Rate now
+            </button>
+          </div>
+          <div className="my-[20px]">
+            <Ratings data={product?.product?.ratings} />
           </div>
         </div>
       </div>

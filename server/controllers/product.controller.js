@@ -136,7 +136,10 @@ const getProduct = expressAsyncHandler(async (req, res) => {
 
 const getProductById = expressAsyncHandler(async (req, res) => {
   try {
-    const product = await productModel.findById(req.params.id);
+    const product = await productModel.findById(req.params.id).populate({
+      path: "ratings.postedBy",
+      select: "+fullname",
+    });
     // get related products
     const relatedProduct = await productModel
       .find({
@@ -208,6 +211,67 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
   }
 });
 
+// @desc rating product by id
+// @router PUT /api/products/:id
+// @access public
+
+const rating = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { star, prodId, comment } = req.body;
+    const product = await productModel.findById(prodId);
+    let alraedyRated = product.ratings.find(
+      (userId) => userId.postedBy.toString() === _id.toString()
+    );
+    if (alraedyRated) {
+      const updateRating = await productModel.updateOne(
+        {
+          ratings: { $elemMatch: alraedyRated },
+        },
+        {
+          $set: {
+            "ratings.$.star": star,
+            "ratings.$.comment": comment,
+          },
+        },
+        { new: true }
+      );
+      res.json({ success: updateRating ? true : false, updateRating });
+    } else {
+      const rateProduct = await productModel.findByIdAndUpdate(
+        prodId,
+        {
+          $push: {
+            ratings: {
+              star: star,
+              postedBy: _id,
+              comment: comment,
+            },
+          },
+        },
+        { new: true }
+      );
+      res.json({ success: rateProduct ? true : false, rateProduct });
+    }
+    const getAllratings = await productModel.findById(prodId);
+    let totalRating = getAllratings.ratings.length;
+    let ratingSum = getAllratings.ratings
+      .map((item) => item.star)
+      .reduce((prev, curr) => {
+        prev + curr;
+      }, 0);
+    let actualRating = Math.round(ratingSum / totalRating);
+    let finalProduct = await productModel.findByIdAndUpdate(
+      prodId,
+      { totalRatings: actualRating },
+      { new: true }
+    );
+    res.json(finalProduct);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 const uploadImageProduct = expressAsyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
@@ -236,4 +300,5 @@ export {
   updateProduct,
   deleteProduct,
   uploadImageProduct,
+  rating,
 };
