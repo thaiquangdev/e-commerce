@@ -2,6 +2,7 @@
 import { products } from "../Data.js";
 import productModel from "../models/product.model.js";
 import expressAsyncHandler from "express-async-handler";
+import { redis } from "../config/redis.js";
 
 // @desc import products
 // @route POST /api/products/import
@@ -136,21 +137,29 @@ const getProduct = expressAsyncHandler(async (req, res) => {
 
 const getProductById = expressAsyncHandler(async (req, res) => {
   try {
-    const product = await productModel.findById(req.params.id).populate({
-      path: "ratings.postedBy",
-      select: "+fullname",
-    });
-    // get related products
-    const relatedProduct = await productModel
-      .find({
-        category: product.category,
-        _id: { $ne: product._id }, // not include the product itself
-      })
-      .limit(4);
-    if (product) {
-      res.json({ product, relatedProduct });
+    const isCacheExist = await redis.get(req.params.id);
+    if (isCacheExist) {
+      const product = JSON.parse(isCacheExist);
+      const relatedProduct = await productModel
+        .find({
+          category: product.category,
+          _id: { $ne: product._id }, // not include the product itself
+        })
+        .limit(4);
+      res.status(201).json({ success: true, product, relatedProduct });
     } else {
-      res.status(404).json({ message: "Product not found" });
+      const product = await productModel.findById(req.params.id).populate({
+        path: "ratings.postedBy",
+        select: "+fullname",
+      });
+      await redis.set(req.params.id, JSON.stringify(product));
+      const relatedProduct = await productModel
+        .find({
+          category: product.category,
+          _id: { $ne: product._id }, // not include the product itself
+        })
+        .limit(4);
+      res.status(201).json({ success: true, product, relatedProduct });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });

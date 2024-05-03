@@ -8,6 +8,7 @@ import {
 } from "../middlewares/Auth.middleware.js";
 import jwt from "jsonwebtoken";
 import cartModel from "../models/cart.model.js";
+import { redis } from "../config/redis.js";
 
 // @desc Import all users
 // @route POST /api/users/import/all
@@ -40,9 +41,11 @@ const login = expressAsyncHandler(async (req, res) => {
           { refreshToken },
           { new: true }
         );
+        redis.set(user._id, JSON.stringify(user));
+
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          maxAge: 30 * 24 * 60 * 60 * 1000,
+          maxAge: 10 * 24 * 60 * 60 * 1000,
         });
         res.json({
           _id: user._id,
@@ -71,16 +74,13 @@ const login = expressAsyncHandler(async (req, res) => {
 const logout = expressAsyncHandler(async (req, res) => {
   try {
     const cookie = req.cookies;
-    if (!cookie || !cookie.refreshToken) {
-      res.status(401).json({ message: "No refresh token in cookies" });
-    }
     await userModel.findOneAndUpdate(
       { refreshToken: cookie.refreshToken },
       { refreshToken: "" },
       { new: true }
     );
     res.clearCookie("refreshToken", { httpOnly: true, secure: true });
-    res.status(201).json({ message: "logout done!" });
+    res.status(201).json({ message: "logout done!", success: true });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

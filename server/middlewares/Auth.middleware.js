@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.model.js";
 import expressAsyncHandler from "express-async-handler";
+import { redis } from "../config/redis.js";
 
 // @desc Authenticated user & get token
 const generateToken = (id) => {
   return jwt.sign(
     { id },
     process.env.JWT_SECRET,
-    { expiresIn: "10d" } // token will expire in 30 days
+    { expiresIn: "3d" } // token will expire in 30 days
   );
 };
 
@@ -15,7 +16,7 @@ const generateRefreshToken = (id) => {
   return jwt.sign(
     { id },
     process.env.JWT_SECRET,
-    { expiresIn: "30d" } // token will expire in 30 days
+    { expiresIn: "10d" } // token will expire in 30 days
   );
 };
 
@@ -34,7 +35,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
       // decode token
       const decode = jwt.verify(token, process.env.JWT_SECRET);
       // get user by id
-      req.user = await userModel.findById(decode.id).select("-password");
+      req.user = await redis.get(decode.id);
       next();
     } catch (error) {
       res.status(401).json({ message: "Not authorized, token fail" });

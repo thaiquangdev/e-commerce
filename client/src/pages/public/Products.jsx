@@ -38,8 +38,6 @@ const Products = () => {
   const [filters, setFilters] = useState({});
   const [searchParams] = useSearchParams();
 
-  console.log(searchParams);
-
   const handleOpenPrice = () => {
     setIsOpen(true);
   };
@@ -148,7 +146,7 @@ const Products = () => {
                   >
                     {brandSmartphone
                       .find((item) => item.category === category)
-                      .brand?.map((item) => {
+                      ?.brand?.map((item) => {
                         return (
                           <option
                             key={item.id}
@@ -208,7 +206,7 @@ const Products = () => {
                   <select className="text-[16px] leading-[24px] border">
                     {brandSmartphone
                       .find((item) => item.category === category)
-                      .typeOfPhone?.map((item) => {
+                      ?.typeOfPhone?.map((item) => {
                         return (
                           <option
                             key={item.id}
@@ -229,7 +227,7 @@ const Products = () => {
                   >
                     {brandSmartphone
                       .find((item) => item.category === category)
-                      .ram?.map((item) => {
+                      ?.ram?.map((item) => {
                         return (
                           <option
                             key={item.id}
@@ -250,7 +248,7 @@ const Products = () => {
                   >
                     {brandSmartphone
                       .find((item) => item.category === category)
-                      .storage?.map((item) => {
+                      ?.storage?.map((item) => {
                         return (
                           <option
                             key={item.id}

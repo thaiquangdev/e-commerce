@@ -3,11 +3,14 @@ import icons from "../utils/icons";
 import { formattedPrice } from "../utils/helper";
 import { useDispatch } from "react-redux";
 import { fetchAddToWishlist } from "../redux/wishlist.jsx/wishlistSlice";
+import { useState } from "react";
+import QuickViewProduct from "./QuickViewProduct";
 
 const { FaStar, FaRegEye, FaRegHeart, IoCartOutline } = icons;
 
 const Product = ({ data }) => {
   const dispatch = useDispatch();
+  const [isQuickView, setIsQuickView] = useState(false);
 
   const handleAddToWishlist = (pid) => {
     dispatch(fetchAddToWishlist(pid));
@@ -31,7 +34,10 @@ const Product = ({ data }) => {
           >
             <FaRegHeart size={16} />
           </Link>
-          <Link className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white">
+          <Link
+            onClick={() => setIsQuickView(true)}
+            className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white"
+          >
             <FaRegEye size={16} />
           </Link>
           <Link className="bg-white rounded-full p-2 text-black border border-[#ccc] hover:bg-red hover:text-white hover:border-white">
@@ -60,6 +66,9 @@ const Product = ({ data }) => {
           </span>
         </div>
       </NavLink>
+      {isQuickView && (
+        <QuickViewProduct data={data} onClose={() => setIsQuickView(false)} />
+      )}
     </div>
   );
 };
