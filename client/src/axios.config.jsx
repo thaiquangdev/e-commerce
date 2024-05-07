@@ -1,17 +1,19 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5500/api",
+  baseURL: "http://localhost:5500/api/",
 });
 
-// Thêm một bộ đón chặn request
 instance.interceptors.request.use(
   function (config) {
-    // Làm gì đó trước khi request dược gửi đi
-    return config;
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    } else return config;
   },
   function (error) {
-    // Làm gì đó với lỗi request
     return Promise.reject(error);
   }
 );
@@ -26,6 +28,9 @@ instance.interceptors.response.use(
   function (error) {
     // Bất kì mã trạng thái nào lọt ra ngoài tầm 2xx đều khiến hàm này được trigger\
     // Làm gì đó với lỗi response
+    if (error.response && error.response.status === 401) {
+      toast.error("Please log in to continue!");
+    }
     return error.response.data;
   }
 );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { apiGetToWishList } from "../../api/userApi";
-import WishlistCart from "../../components/WishlistCart";
+import { apiGetToWishList } from "../../../api/userApi";
+import WishlistCart from "../../../components/products/WishlistCart";
 
 const Wishlist = () => {
   const [product, setProduct] = useState(null);

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { formattedPrice } from "../utils/helper";
-import Input from "./Input";
+import { formattedPrice } from "../../utils/helper";
+import Input from "../inputs/Input";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch } from "react-redux";
-import { fetchUpdateCart } from "../redux/cart/cartSlice";
+import { fetchUpdateCart } from "../../redux/cart/cartSlice";
 import { Link } from "react-router-dom";
 
 var settings = {

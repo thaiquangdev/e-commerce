@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import icons from "../utils/icons";
+import icons from "../../utils/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLogout } from "../redux/user/userSlice";
+import { fetchUserLogout } from "../../redux/user/userSlice";
 
 const {
   RiGitRepositoryPrivateFill,

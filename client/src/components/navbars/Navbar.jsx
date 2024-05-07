@@ -1,19 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
-import Input from "./Input";
-import icons from "../utils/icons.js";
-import { useState } from "react";
-import Breadcrumb from "./Breadcrumb.jsx";
+import icons from "../../utils/icons.js";
+import { useEffect, useState } from "react";
+import Breadcrumb from "../breadcrumbs/Breadcrumb.jsx";
 import { useSelector } from "react-redux";
+import Search from "../searchs/Search.jsx";
 
 const { FiSearch, FaRegHeart, IoCartOutline, LuUser2, MdOutlineMenu } = icons;
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const wishlist = useSelector((state) => state?.wishlist?.wishlist?.wishlist);
   const totalItems = useSelector((state) => state?.cart?.totalItems);
-  console.log(totalItems);
 
   const handleClick = () => {
     setIsActive(true);
@@ -22,6 +22,13 @@ const Navbar = () => {
   const handleClickOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -88,15 +95,17 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="text-[18px] font-medium leading-6">
-                  <Link
-                    to="/register"
-                    onClick={handleClick}
-                    className={
-                      location.pathname === "/register" ? "underline" : ""
-                    }
-                  >
-                    Sign Up
-                  </Link>
+                  {!isLoggedIn && (
+                    <Link
+                      to="/register"
+                      onClick={handleClick}
+                      className={
+                        location.pathname === "/register" ? "underline" : ""
+                      }
+                    >
+                      Sign Up
+                    </Link>
+                  )}
                 </li>
               </ul>
               <Link to="/">
@@ -149,16 +158,7 @@ const Navbar = () => {
                 </li>
               </ul>
               <div className="flex items-center justify-center gap-4">
-                <div className="flex items-center justify-center">
-                  <Input
-                    type="text"
-                    place="What are you looking for?"
-                    classN="py-1 px-2 placeholder:text-[12px] placeholder:leading-[8px] bg-input-bg"
-                  />
-                  <span className="bg-input-bg p-2">
-                    <FiSearch />
-                  </span>
-                </div>
+                <Search />
                 <div className="flex items-center justify-center gap-5">
                   <Link to="/wishlist" className="relative">
                     <FaRegHeart size={25} />

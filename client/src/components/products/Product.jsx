@@ -1,8 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
-import icons from "../utils/icons";
-import { formattedPrice } from "../utils/helper";
+import icons from "../../utils/icons";
+import { formattedPrice } from "../../utils/helper";
 import { useDispatch } from "react-redux";
-import { fetchAddToWishlist } from "../redux/wishlist.jsx/wishlistSlice";
+import { fetchAddToWishlist } from "../../redux/wishlist.jsx/wishlistSlice";
 import { useState } from "react";
 import QuickViewProduct from "./QuickViewProduct";
 

@@ -57,13 +57,13 @@ const login = expressAsyncHandler(async (req, res) => {
           success: user ? true : false,
         });
       } else {
-        res.status(401).json({ message: "Invalid passowrd" });
+        res.status(401).json({ message: "Invalid passowrd", success: false });
       }
     } else {
-      res.status(401).json({ message: "Invalid Email" });
+      res.status(401).json({ message: "Invalid Email", success: false });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message, success: false });
   }
 });
 

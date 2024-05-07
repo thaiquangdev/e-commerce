@@ -1,5 +1,5 @@
 import { useState } from "react";
-import icons from "../utils/icons";
+import icons from "../../utils/icons";
 
 const { FaStar } = icons;
 

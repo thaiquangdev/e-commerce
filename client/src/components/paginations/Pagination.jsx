@@ -1,6 +1,6 @@
-import { usePagination } from "../hooks/usePagination";
+import { usePagination } from "../../hooks/usePagination";
 import PaginationItem from "./PaginationItem";
-import icons from "../utils/icons";
+import icons from "../../utils/icons";
 import { useSearchParams } from "react-router-dom";
 import clsx from "clsx";
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";

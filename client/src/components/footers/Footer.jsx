@@ -1,9 +1,9 @@
-import Input from "./Input";
-import icons from "../utils/icons";
+import Input from "../inputs/Input";
+import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
-import QrCode from "../assets/images/Qrcode.png";
-import appstore from "../assets/images/appstore.png";
-import googleplay from "../assets/images/googleplay.png";
+import QrCode from "../../assets/images/Qrcode.png";
+import appstore from "../../assets/images/appstore.png";
+import googleplay from "../../assets/images/googleplay.png";
 
 const { VscSend, RiFacebookLine, FaInstagram, FiTwitter, RiLinkedinLine } =
   icons;

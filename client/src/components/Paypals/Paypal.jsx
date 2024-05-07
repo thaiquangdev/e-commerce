@@ -4,9 +4,9 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
-import { apiCreateOrder } from "../api/orderApi";
+import { apiCreateOrder } from "../../api/orderApi";
 import { toast } from "react-toastify";
-import { apiDeleteAllCart, apiDeleteCart } from "../api/userApi";
+import { apiDeleteAllCart, apiDeleteCart } from "../../api/userApi";
 
 const style = { layout: "vertical" };
 

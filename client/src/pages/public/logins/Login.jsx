@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import bannerLogin from "../../assets/images/bannerLogin.png";
-import Input from "../../components/Input";
+import bannerLogin from "../../../assets/images/bannerLogin.png";
+import Input from "../../../components/inputs/Input";
 
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLogin } from "../../redux/user/userSlice";
-import { loginSchema } from "../../utils/validation";
+import { fetchUserLogin } from "../../../redux/user/userSlice";
+import { loginSchema } from "../../../utils/validation";
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 // validation for yup
@@ -23,13 +24,18 @@ const Login = () => {
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-      dispatch(fetchUserLogin(values));
+      const rs = await dispatch(fetchUserLogin(values));
+      if (rs?.payload?.success) {
+        localStorage.setItem("token", rs?.payload?.token);
+        navigate("/");
+      } else {
+        toast.error(rs?.payload?.message);
+      }
     },
   });
 
   useEffect(() => {
     if (user?.success === true) {
-      localStorage.setItem("token", user?.token);
       navigate("/");
     }
   }, [user]);

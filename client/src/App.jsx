@@ -1,22 +1,22 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import path from "./utils/path";
 import Layout from "./layouts/Layout";
-import Home from "./pages/public/Home";
-import Register from "./pages/public/Register";
-import Login from "./pages/public/Login";
+import Home from "./pages/public/homes/Home";
+import Register from "./pages/public/registers/Register";
+import Login from "./pages/public/logins/Login";
 import Dashboard from "./pages/public/Dashboard";
 import Profile from "./pages/public/Profile";
 import Order from "./pages/public/Order";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Products from "./pages/public/Products";
-import ProductDetail from "./pages/public/ProductDetail";
-import Cart from "./pages/public/Cart";
+import Products from "./pages/public/products/Products";
+import ProductDetail from "./pages/public/products/ProductDetail";
+import Cart from "./pages/public/carts/Cart";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Wishlist from "./pages/public/Wishlist";
-import PageNotFound from "./pages/public/PageNotFound";
-import CheckOut from "./pages/public/CheckOut";
+import Wishlist from "./pages/public/wishlists/Wishlist";
+import PageNotFound from "./pages/public/pageNotFounds/PageNotFound";
+import CheckOut from "./pages/public/checkOuts/CheckOut";
 
 // protedroute order, dashboard, profile, password
 

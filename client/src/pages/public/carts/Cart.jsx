@@ -1,4 +1,4 @@
-import Input from "../../components/Input";
+import Input from "../../../components/inputs/Input";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,11 +6,11 @@ import {
   fetchDeleteCart,
   fetchGetCart,
   fetchUpdateQuantityCart,
-} from "../../redux/cart/cartSlice";
-import { formattedPrice } from "../../utils/helper";
-import icons from "../../utils/icons";
-import { apiAppyCoupon } from "../../api/couponApi";
-import { addtotalAmount } from "../../redux/cart/cartSlice";
+} from "../../../redux/cart/cartSlice";
+import { formattedPrice } from "../../../utils/helper";
+import icons from "../../../utils/icons";
+import { apiAppyCoupon } from "../../../api/couponApi";
+import { addtotalAmount } from "../../../redux/cart/cartSlice";
 
 const { TiDelete } = icons;
 

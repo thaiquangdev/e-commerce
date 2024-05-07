@@ -1,11 +1,11 @@
-import bannerLogin from "../../assets/images/bannerLogin.png";
-import Input from "../../components/Input";
+import bannerLogin from "../../../assets/images/bannerLogin.png";
+import Input from "../../../components/inputs/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { registerSchema } from "../../utils/validation";
-import { fetchUserRegister } from "../../redux/user/userSlice";
-import { useEffect } from "react";
+import { registerSchema } from "../../../utils/validation";
+import { fetchUserRegister } from "../../../redux/user/userSlice";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -23,12 +23,6 @@ const Register = () => {
       dispatch(fetchUserRegister(values));
     },
   });
-
-  useEffect(() => {
-    if (user?.user?.data !== null && user?.isSuccess === true) {
-      navigate("/login");
-    }
-  }, [user]);
 
   return (
     <div className="max-w-1170 mx-auto">

@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Product from "../../components/Product";
+import Product from "../../../components/products/Product";
 import {
   createSearchParams,
   useLocation,
@@ -10,12 +10,12 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { apiGetProducts } from "../../api/productApi";
-import { bannerProductsService } from "../../api/bannerProductApi";
-import Pagination from "../../components/Pagination";
-import { brandSmartphone } from "../../utils/constrain";
-import Input from "../../components/Input";
-import { formattedPrice } from "../../utils/helper";
+import { apiGetProducts } from "../../../api/productApi";
+import { bannerProductsService } from "../../../api/bannerProductApi";
+import Pagination from "../../../components/paginations/Pagination";
+import { brandSmartphone } from "../../../utils/constrain";
+import Input from "../../../components/inputs/Input";
+import { formattedPrice } from "../../../utils/helper";
 
 const Products = () => {
   var settings = {

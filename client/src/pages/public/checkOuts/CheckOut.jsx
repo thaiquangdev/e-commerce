@@ -1,10 +1,10 @@
-import Input from "../../components/Input";
+import Input from "../../../components/inputs/Input.jsx";
 import { useSelector } from "react-redux";
-import { formattedPrice } from "../../utils/helper";
+import { formattedPrice } from "../../../utils/helper";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { shippingSchema } from "../../utils/validation";
-import Paypal from "../../components/Paypal";
+import { shippingSchema } from "../../../utils/validation";
+import Paypal from "../../../components/Paypals/Paypal.jsx";
 
 const CheckOut = () => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);

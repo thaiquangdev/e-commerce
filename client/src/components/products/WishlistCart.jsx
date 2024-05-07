@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import icons from "../utils/icons";
-import { formattedPrice } from "../utils/helper";
+import icons from "../../utils/icons";
+import { formattedPrice } from "../../utils/helper";
 const { FaStar } = icons;
 
 const WishlistCart = ({ data }) => {

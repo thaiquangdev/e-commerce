@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { siderBar } from "../../utils/constrain";
-import banner from "../../assets/images/banner.png";
-import apple from "../../assets/images/apple.png";
-import icons from "../../utils/icons";
-import { category } from "../../utils/constrain";
-import Product from "../../components/Product";
-import jbl_boombox from "../../assets/images/jbl_boombox.png";
-import { apiGetProducts } from "../../api/productApi";
+import { siderBar } from "../../../utils/constrain";
+import banner from "../../../assets/images/banner.png";
+import apple from "../../../assets/images/apple.png";
+import icons from "../../../utils/icons";
+import { category } from "../../../utils/constrain";
+import Product from "../../../components/products/Product";
+import jbl_boombox from "../../../assets/images/jbl_boombox.png";
+import { apiGetProducts } from "../../../api/productApi";
 import { useEffect, useState } from "react";
 
 const { FiArrowRight } = icons;

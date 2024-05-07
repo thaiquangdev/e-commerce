@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { apiGetProduct, apiRatings } from "../../api/productApi";
+import { apiGetProduct, apiRatings } from "../../../api/productApi";
 import { useParams, Link } from "react-router-dom";
-import icons from "../../utils/icons";
-import { formattedPrice } from "../../utils/helper";
-import Input from "../../components/Input";
-import Product from "../../components/Product";
+import icons from "../../../utils/icons";
+import { formattedPrice } from "../../../utils/helper";
+import Input from "../../../components/inputs/Input";
+import Product from "../../../components/products/Product";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch } from "react-redux";
-import { fetchUpdateCart } from "../../redux/cart/cartSlice";
-import Votebar from "../../components/Votebar";
-import ModalRating from "../../components/ModalRating";
+import { fetchUpdateCart } from "../../../redux/cart/cartSlice";
+import Votebar from "../../../components/ratings/Votebar";
+import ModalRating from "../../../components/ratings/ModalRating";
 import { toast } from "react-toastify";
-import Ratings from "../../components/Ratings";
+import Ratings from "../../../components/ratings/Ratings";
 
 const { FaStar, FaRegHeart } = icons;
 
