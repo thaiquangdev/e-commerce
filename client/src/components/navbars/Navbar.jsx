@@ -12,8 +12,6 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const wishlist = useSelector((state) => state?.wishlist?.wishlist?.wishlist);
-  const totalItems = useSelector((state) => state?.cart?.totalItems);
 
   const handleClick = () => {
     setIsActive(true);
@@ -94,8 +92,8 @@ const Navbar = () => {
                     About
                   </Link>
                 </li>
-                <li className="text-[18px] font-medium leading-6">
-                  {!isLoggedIn && (
+                {isLoggedIn === false && (
+                  <li className="text-[18px] font-medium leading-6">
                     <Link
                       to="/register"
                       onClick={handleClick}
@@ -105,8 +103,8 @@ const Navbar = () => {
                     >
                       Sign Up
                     </Link>
-                  )}
-                </li>
+                  </li>
+                )}
               </ul>
               <Link to="/">
                 <h1 className="text-[24px] font-bold">Exclusive</h1>
@@ -162,19 +160,11 @@ const Navbar = () => {
                 <div className="flex items-center justify-center gap-5">
                   <Link to="/wishlist" className="relative">
                     <FaRegHeart size={25} />
-                    {wishlist && (
-                      <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]">
-                        {wishlist.length}
-                      </span>
-                    )}
+                    <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]"></span>
                   </Link>
                   <Link to="/cart" className="relative">
                     <IoCartOutline size={25} />
-                    {totalItems && (
-                      <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]">
-                        {totalItems}
-                      </span>
-                    )}
+                    <span className="w-[20px] h-[20px] text-center text-white rounded-full bg-red absolute bottom-[-12px] right-[-10px] text-[14px]"></span>
                   </Link>
                   <div className=" rounded-full p-2 bg-red flex items-center justify-center cursor-pointer">
                     <Link to="/dashboard">

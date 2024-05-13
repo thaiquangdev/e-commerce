@@ -69,10 +69,10 @@ const apiGetToWishList = () =>
   });
 
 // logout user API
-const apiLogout = (user) =>
+const apiLogout = () =>
   axios({
     url: "http://localhost:5500/api/users/logout",
-    method: "put",
+    method: "get",
   });
 
 export {

@@ -3,7 +3,7 @@ import bannerLogin from "../../../assets/images/bannerLogin.png";
 import Input from "../../../components/inputs/Input";
 
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchUserLogin } from "../../../redux/user/userSlice";
 import { loginSchema } from "../../../utils/validation";
 import { toast } from "react-toastify";
@@ -14,7 +14,6 @@ import { useEffect } from "react";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
 
   // formik
   const formik = useFormik({
@@ -35,10 +34,11 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (user?.success === true) {
+    const token = localStorage.getItem("token");
+    if (token) {
       navigate("/");
     }
-  }, [user]);
+  }, []);
 
   return (
     <div className="max-w-1170 mx-auto">

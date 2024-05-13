@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 const instance = axios.create({
   baseURL: "http://localhost:5500/api/",
+  withCredentials: true,
 });
 
 instance.interceptors.request.use(

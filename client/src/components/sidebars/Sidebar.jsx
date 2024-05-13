@@ -17,12 +17,12 @@ const Sidebar = () => {
   const location = useLocation();
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
 
   const handleLogout = () => {
-    dispatch(fetchUserLogout(user?.data?.token))
+    dispatch(fetchUserLogout())
       .unwrap()
       .then(() => {
+        localStorage.removeItem("token");
         Navigate("/login");
       })
       .catch((error) => {

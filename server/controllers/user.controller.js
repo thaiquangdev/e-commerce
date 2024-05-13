@@ -118,6 +118,7 @@ const register = expressAsyncHandler(async (req, res) => {
           image: user.image,
           isAdmin: user.isAdmin,
           token: generateToken(user._id), // generate token for authentication in the fontend
+          success: true,
         });
       } else {
         res.status(400);

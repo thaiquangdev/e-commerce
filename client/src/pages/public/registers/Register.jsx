@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { registerSchema } from "../../../utils/validation";
 import { fetchUserRegister } from "../../../redux/user/userSlice";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -20,9 +21,22 @@ const Register = () => {
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
-      dispatch(fetchUserRegister(values));
+      const rs = await dispatch(fetchUserRegister(values));
+      if (rs?.payload?.success) {
+        localStorage.setItem("token", rs?.payload?.token);
+        navigate("/");
+      } else {
+        toast.error(rs?.payload?.message);
+      }
     },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="max-w-1170 mx-auto">
